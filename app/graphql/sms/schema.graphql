@@ -1,0 +1,24 @@
+# user
+type Res {
+  status: String!
+  msg: String!
+}
+
+type verifyCheckmobile {
+  status: String!
+  msg: String!
+  token: String
+  reToken: String
+  data: Userdata
+}
+
+type Userdata {
+  name: String
+  imageUrl: String
+  sex: String
+  mobile: String
+  email: String
+  description: String
+}
+
+
