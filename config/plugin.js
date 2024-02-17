@@ -5,29 +5,29 @@ module.exports = {
   //   enable: true,
   // }
   // config/plugin.js
-graphql: {
-  enable: true,
-  package: 'egg-graphql',
-},
+  graphql: {
+    enable: true,
+    package: "egg-graphql",
+  },
 
-mongoose: {
-  enable: true,
-  package: 'egg-mongoose',
-},
+  mongoose: {
+    enable: true,
+    package: "egg-mongoose",
+  },
 
-redis: {
-  enable: true,
-  package: 'egg-redis',
-},
+  redis: {
+    enable: true,
+    package: "egg-redis",
+  },
 
-jwt: {
-  enable: true,
-  package: "egg-jwt"
-},
+  jwt: {
+    enable: true,
+    package: "egg-jwt",
+  },
 
-cors: {
-  enable: true,
-  package: 'egg-cors',
-},
+  cors: {
+    enable: true,
+    package: "egg-cors",
+  },
 
 };

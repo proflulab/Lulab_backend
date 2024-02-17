@@ -3,11 +3,11 @@
 const bcrypt = require("bcrypt");
 
 module.exports = {
-  //     /**
-  //      * 生成*位随机数 默认为6位
-  //      * @param {Int} length //随机数长度
-  //      * @return
-  //      */
+  /**
+   * 生成*位随机数 默认为6位
+   * @param {Int} length 随机数长度
+   * @return {String} Num
+   */
   rand(length = 6) {
     let Num = "";
     for (let i = 0; i < length; i++) {
@@ -25,6 +25,7 @@ module.exports = {
     const hash = bcrypt.hashSync(password, salt); // 哈希（同步调用）
     return hash;
   },
+
   compare(password, hash) {
     return bcrypt.compareSync(password, hash); // 比对
   },
