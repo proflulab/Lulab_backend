@@ -33,6 +33,6 @@ npm stop
 
 ### 相关插件
 
-koro1FileHeader 注释辅助插件
+koroFileHeader 注释辅助插件
 
 代码标准 ESLint

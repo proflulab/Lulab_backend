@@ -12,8 +12,8 @@
 
 module.exports = {
   Query: {
-    verifySend(root, { mobile, ctry_code }, ctx) {
-      return ctx.connector.sms.verifySend(mobile, ctry_code);
+    sendSmsCode(root, { mobile, ctry_code }, ctx) {
+      return ctx.connector.sms.sendSmsCode(mobile, ctry_code);
     },
   },
 

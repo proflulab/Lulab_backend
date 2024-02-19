@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-19 17:38:50
- * @FilePath: /Lulab_backend/app/graphql/sms/connector.js
+ * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
+ * @LastEditTime: 2024-02-20 02:02:15
+ * @FilePath: \Lulab_backend-1\app\graphql\auth\connector.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -26,9 +26,9 @@ class LaunchConnector {
    * @param {String} mobile - Mobile number.
    * @return {Promise} Result of SMS service call.
    */
-  async verifySend(ctry_code, mobile) {
+  async sendSmsCode(ctry_code, mobile) {
     try {
-      await this.service.sms.verifySend(mobile, ctry_code);
+      await this.service.sms.sendCode_SMS(mobile, ctry_code);
       return { status: "200", msg: "已经发送验证码" };
     } catch (error) {
       throw error;
@@ -44,13 +44,13 @@ class LaunchConnector {
    */
   async mobileCodeLogin(ctry_code, mobile, code) {
     try {
-      const result = await this.service.sms.verifyCheck(ctry_code, mobile, code);
+      const result = await this.service.sms.verifyCheck(ctry_code + mobile, code, "mobile");
       if (result) {
         const user = await this.service.user.findUserByMobile(ctry_code, mobile);
         const avatar = "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
         if (!user) {
-          const randPwd = this.helper.genRandCode(12, ["num", "lower", "upper", "special"]);
+          const randPwd = this.helper.genRandCode(12, [ "num", "lower", "upper", "special" ]);
           const password = this.helper.encrypt(randPwd);
 
           const userinfo = { ctry_code, mobile, password, avatar };

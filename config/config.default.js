@@ -80,6 +80,16 @@ module.exports = appInfo => {
       accountSid: process.env.TWILIO_ACCOUNT_SID,
       authToken: process.env.TWILIO_AUTH_TOKEN,
     },
+
+
+    // Email service configuration
+    mailer: {
+      service: "Gmail", // Use Gmail as the mail service
+      auth: {
+        user: process.env.EMAIL_USER, // Sender's email address
+        pass: process.env.EMAIL_PASS, // Sender's email password
+      },
+    },
   };
 
   // add your user config here
