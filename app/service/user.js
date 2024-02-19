@@ -1,53 +1,113 @@
+/*
+ * @Author: 杨仕明 shiming.y@qq.com
+ * @Date: 2024-02-17 10:13:58
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-19 16:48:10
+ * @FilePath: /Lulab_backend/app/service/user.js
+ * @Description:
+ *
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
+ */
+
 "use strict";
 
 const Service = require("egg").Service;
-const Helper = require("../extend/helper.js");
 
+
+/**
+ * @description - User service class responsible for handling user-related logic operations.
+ * @return {*}
+ */
 class UserService extends Service {
-  // 登入校验+注册（手机号）
-  async createAccount(mobile, area, password, email) {
+
+
+  /**
+   * @description - Creates a new user by saving the user information to the database.
+   * @param {Object} userInfo - An object containing the user information, including the name, email, and password.
+   * @return {Object} - The created user object, including all the user information.
+   */
+  async createUser(userInfo) {
     const { ctx } = this;
-    // 注册判断是否存在
-    const corr = await ctx.model.User.findOne({
-      $or: [{ area }, { mobile }],
-    });
-    console.log(corr);
-    if (!corr) {
-      console.log("用户注册成功");
-      console.log("用户信息：", corr);
-      const course = await ctx.model.User.create({
-        mobile,
-        area,
-        password: Helper.encrypt(Helper.genRandomPwd()),
-        email,
-      });
-      const result = await course.save();
-      console.log(result);
-      console.log(result._id);
-      const Token = await ctx.service.jwt.generateToken(result._id);
-      // 将生成的Token返回给前端
-      ctx.body = "注册成功";
-      console.log("注册成功");
-      return {
-        status: "100",
-        msg: "注册成功",
-        token: Token.token,
-        retoken: Token.refresh_token,
-        data: result,
-      };
+    try {
+      // const user = await ctx.model.User.create(userInfo);
+      // return user;
+      const userinfo = new ctx.model.User(userInfo);
+      const user = await userinfo.save();
+      return user;
+    } catch (err) {
+      ctx.logger.error(err);
+      return null;
     }
-    ctx.body = "该用户已注册";
-    console.log("该用户已注册,可选择登入");
-    const Token = await ctx.service.jwt.generateToken(corr._id);
-    // 将生成的Token返回给前端
-    return {
-      status: "200",
-      msg: "此账号已注册，已选择登入",
-      token: Token.token,
-      retoken: Token.refresh_token,
-      data: corr,
-    };
   }
+
+
+  /**
+ * @description - Finds a user by their ID.
+ * @param {string} userId - The ID of the user.
+ * @return {Object|null} - The found user object or null if not found.
+ */
+  async findUserById(userId) {
+    const { ctx } = this;
+    try {
+      const user = await ctx.model.User.findById(userId);
+      return user;
+    } catch (err) {
+      ctx.logger.error(err);
+      return null;
+    }
+  }
+
+  /**
+   * @description - Finds a user by their area and mobile number.
+   * @param {string} area - The area information.
+   * @param {string} mobile - The mobile number.
+   * @return {Object|null} - The found user object or null if not found.
+   */
+  async findUserByMobile(area, mobile) {
+    const { ctx } = this;
+    try {
+      const user = await ctx.model.User.findOne({
+        $or: [{ area }, { mobile }],
+      });
+      return user;
+    } catch (err) {
+      ctx.logger.error(err);
+      return null;
+    }
+  }
+
+
+  /**
+   * @description - Finds a user by their email address.
+   * @param {string} email - The email address.
+   * @return {Object|null} - The found user object or null if not found.
+   */
+  async findUserByEmail(email) {
+    const { ctx } = this;
+    try {
+      const user = await ctx.model.User.findOne({ email });
+      return user;
+    } catch (err) {
+      ctx.logger.error(err);
+      return null;
+    }
+  }
+
+  /**
+   * @description - Finds all users.
+   * @return {Array<Object>|null} - An array of all user objects, or null if no users found.
+   */
+  async findAllUsers() {
+    const { ctx } = this;
+    try {
+      const users = await ctx.model.User.find();
+      return users;
+    } catch (err) {
+      ctx.logger.error(err);
+      return null;
+    }
+  }
+
 }
 
 module.exports = UserService;

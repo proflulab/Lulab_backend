@@ -1,18 +1,48 @@
-// {app_root}/app/model/user.js
-// eslint-disable-next-line arrow-parens
-module.exports = (app) => {
+/*
+ * @Author: 杨仕明 shiming.y@qq.com
+ * @Date: 2024-02-17 10:13:58
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-19 18:00:43
+ * @FilePath: /Lulab_backend/app/model/user.js
+ * @Description:
+ *
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
+ */
+
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
+  // Define User Schema 定义用户模式
   const UserSchema = new Schema({
-    name: { type: String },
-    password: { type: String },
-    email: { type: String },
+    // Username 用户名
+    name: { type: String, unique: true },
+    // Nickname 昵称
+    nickname: { type: String, unique: true },
+    // Real Name 真实姓名
+    real_name: { type: String },
+    // Password 密码
+    password: { type: String, required: true },
+    // Gender (0: Unknown, 1: Male, 2: Female) 性别 (0：未知，1: 男，2: 女)
+    sex: { type: Number, required: true, default: 0 },
+    // Email 电子邮件
+    email: { type: String, unique: true },
+    // Mobile Phone 手机号码
     mobile: { type: String },
-    area: { type: String },
-    dsc: { type: String },
-    sex: { type: String },
-  });
+    // Area Code 手机区号
+    area_code: { type: String },
+    // Avatar 头像
+    avatar: { type: String, required: true, default: "" },
+    // Whether the user is blocked 是否被封锁
+    blocked: { type: Boolean, default: false },
+    // Description 描述
+    description: { type: String },
+    // Last login time 最后登录时间
+    lastLoginAT: { type: Number, default: Date.now, required: true },
+  }, { timestamps: true });
 
-  return mongoose.model("User", UserSchema);
+  // 创建复合唯一索引
+  UserSchema.index({ mobile: 1, area: 1 }, { unique: true });
+
+  return mongoose.model("User", UserSchema, "user");
 };

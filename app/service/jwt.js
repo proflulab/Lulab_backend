@@ -1,34 +1,69 @@
+/*
+ * @Author: 杨仕明 shiming.y@qq.com
+ * @Date: 2024-02-17 10:13:58
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-19 12:16:51
+ * @FilePath: /Lulab_backend/app/service/jwt.js
+ * @Description:
+ *
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
+ */
+
 const Service = require("egg").Service;
-// const jwt = require('jsonwebtoken');
 const UUID = require("uuid").v4;
 const dayjs = require("dayjs");
+
 class JwtService extends Service {
-  // 生成 Token
+  /**
+   * Create a JSON Web Token (JWT) and return it.
+   * @description This function is used to create a JSON Web Token (JWT) for user authentication and authorization.
+   * @param {string} userId - The unique identifier of the user.
+   * @param {string} secret - The secret key used to sign the JWT.
+   * @param {number} expire - The expiration time of the JWT (in seconds).
+   * @return {Promise<string>} - Returns a Promise object containing the JWT.
+   */
   async createToken(userId, secret, expire) {
+    // Parameter validation
+    if (!userId || !secret || typeof expire !== "number" || expire <= 0) {
+      throw new Error("Invalid parameters");
+    }
+
     const now = dayjs().unix();
-    return this.app.jwt.sign(
-      {
-        aud: "http://127.0.0.1",
-        iss: "",
-        jti: UUID(),
-        iat: now,
-        nbf: now,
-        exp: now + expire,
-        uid: userId,
-      },
-      secret
-    );
+    const jti = UUID(); // Generate a unique identifier
+
+    const payload = {
+      aud: "http://127.0.0.1",
+      iss: "", // Configure as per actual scenario
+      jti,
+      iat: now,
+      nbf: now,
+      exp: now + expire,
+      uid: userId,
+    };
+
+    try {
+      // Sign the JWT using a secure signing algorithm
+      const token = await this.app.jwt.sign(payload, secret);
+      return token;
+    } catch (error) {
+      throw new Error("JWT signing failed");
+    }
   }
 
-  // 生成token, refresh_token
+
+  /**
+   * @description - Generates a token and a refresh_token.
+   * @param {string} userId - The user's ID.
+   * @return {Object} - An object containing the generated token and refresh_token.
+   */
   async generateToken(userId) {
-    const config = this.app.config.jwt;
+    const { secret, expire, refresh_expire } = this.config.jwt;
     return {
-      token: await this.createToken(userId, config.secret, config.expire),
+      token: await this.createToken(userId, secret, expire),
       refresh_token: await this.createToken(
         userId,
-        config.refresh_secret,
-        config.refresh_expire
+        secret,
+        refresh_expire
       ),
     };
   }
@@ -83,7 +118,12 @@ class JwtService extends Service {
     };
   }
 
-  // 从 Token 中获取用户ID
+  /**
+   * @description - 从 Token 中获取用户ID
+   * @param {*} token
+   * @param {*} isRefresh
+   * @return {*}
+   */
   getUserIdFromToken(token, isRefresh = false) {
     const result = this.verifyToken(token, isRefresh);
     if (!result) {

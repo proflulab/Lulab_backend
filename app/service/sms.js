@@ -1,99 +1,121 @@
-// Download the helper library from https://www.twilio.com/docs/node/install
-// Find your Account SID and Auth Token at twilio.com/console
-// and set the environment variables. See http://twil.io/secure
-// 引入 Twilio 模块
+/*
+ * @Author: 杨仕明 shiming.y@qq.com
+ * @Date: 2024-02-17 12:44:06
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-19 15:53:16
+ * @FilePath: /Lulab_backend/app/service/sms.js
+ * @Description:
+ *
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
+ */
+
+
 const twilio = require("twilio");
-require("dotenv").config();
-// 创建 Twilio 客户端实例
-const ACcountSid = process.env.TWILIO_ACCOUNT_SID;
-const AuthToken = process.env.TWILIO_AUTH_TOKEN;
-const client = twilio(ACcountSid, AuthToken);
 const Service = require("egg").Service;
 
 class smsService extends Service {
-  // 定义发送短信的函数
-  async sendSMS(mobile, code, area) {
+
+  /**
+ * @description Send SMS using Twilio
+ * @param {String} area - Area code
+ * @param {String} mobile - Mobile number
+ * @param {String} message - Message content
+ * @return {Boolean} Returns true if the SMS is sent successfully, otherwise throws an error.
+ */
+  async twilio_SMS(area, mobile, message) {
+
+    if (!area || !mobile || !message) {
+      throw new Error("Area code, mobile number, and message content are required.");
+    }
+
+    const { accountSid, authToken } = this.config.twilio;
+    const client = twilio(accountSid, authToken);
+
     try {
-      const message = `您的验证码是：${code}`;
-      // 使用 Twilio 客户端发送短信
       const result = await client.messages.create({
         body: message,
         from: "+12568575054",
         to: area + mobile,
       });
-
-      console.log("短信发送成功：", result.sid);
-      console.log(JSON.stringify(result));
-      return {
-        status: "100",
-        msg: "发送成功",
-      };
+      this.ctx.logger.info("SMS sent successfully: " + JSON.stringify(result));
+      return true;
     } catch (ex) {
-      console.log("短信发送失败：", ex.message);
-      return {
-        status: ex.code,
-        msg: ex.message,
-      };
+      this.ctx.logger.warn("Failed to send SMS:", ex);
+      throw new Error("Failed to send SMS: " + ex.message);
     }
-  }
-  /**
-   * 验证码发送
-   * 验证码 5 分钟内有效
-   * 待解决：area未测试
-   * @param {String} mobile - 手机号
-   * @param {Int} area - 地区
-   */
-  async verifySend(mobile, area) {
-    const code = this.ctx.helper.rand(6);
-    const result = await this.sendSMS(mobile, code, area);
-    if (result.status === "100") {
-      await this.ctx.service.cache.set(
-        "mobileVerify " + area + " " + mobile,
-        JSON.stringify(code),
-        600
-      );
-    }
-    return result;
   }
 
+
   /**
-   * 验证码校验（已完成）
-   * @param {String} mobile - 手机号
-   * @param {Int} code - 验证码
-   * @param {Int} area - 地区
-   */
-  async verifyCheck(mobile, code, area) {
+  * Send mobile verification code.
+  * @param {String} area - Area code
+  * @param {String} mobile - Mobile number
+  * @param {String} operator - SMS operator
+  */
+  async verifySend(area, mobile, operator) {
     const { ctx } = this;
-    const getcode = await ctx.service.cache.get(
-      "mobileVerify " + area + " " + mobile
-    );
-    if (getcode && getcode === code) {
-      const result = await ctx.service.user.createAccount(mobile, area);
-      if (result && result.status === "100") {
-        return {
-          status: "100 ",
-          msg: "验证码正确,注册成功",
-          token: result.token,
-          reToken: result.retoken,
-          data: result.data,
-        };
-      }
-      return {
-        status: "200",
-        msg: "此账号已注册，已选择登入",
-        token: result.token,
-        reToken: result.retoken,
-        data: result.data,
-      };
-    }
-    return {
-      status: "400",
-      msg: "验证码输入错误",
-      token: null,
-      reToken: null,
-      data: null,
+    const code = ctx.helper.rand(6);
+    const message = `Your verification code is: ${code}`;
+    const operators = {
+      twilio_SMS: this.twilio_SMS,
+      // ali_SMS: this.ali_SMS
+      // Add more operators as needed
     };
+
+
+    const sendSMS = operators[operator] || this.twilio_SMS; // Default to twilio_SMS if operator is not supported
+    if (!sendSMS) {
+      throw new Error("Unsupported operator");
+    }
+
+    try {
+      const result = await sendSMS.call(this, area, mobile, message);
+      if (result) {
+        const cacheKey = `mobileVerify-${area}-${mobile}`;
+        await ctx.service.cache.set(cacheKey, JSON.stringify(code), 600);
+      }
+      return true;
+    } catch (error) {
+      ctx.logger.error("An error occurred while sending the verification code:", error);
+      throw new Error("An error occurred while sending the verification code:", error);
+    }
   }
+
+
+  /**
+ * @description - Verification code verification
+ * @param {String} area - Area code
+ * @param {String} mobile - Mobile number
+ * @param {String} code - Verification code
+ * @return {Boolean} - True if successful
+ */
+  async verifyCheck(area, mobile, code) {
+    try {
+      const { ctx } = this;
+
+      // Validate inputs
+      if (!area || !mobile || !code) {
+        throw new Error("Area, mobile, and code are required.");
+      }
+
+      // Construct cache key securely
+      const cacheKey = `mobileVerify-${area}-${mobile}`;
+
+      // Get code from cache
+      const cachedCode = await ctx.service.cache.get(cacheKey);
+
+      // Compare codes
+      if (cachedCode === code) {
+        return true;
+      }
+      return false;
+
+    } catch (error) {
+      console.error("Error occurred during verification:", error);
+      return false;
+    }
+  }
+
 }
 
 module.exports = smsService;

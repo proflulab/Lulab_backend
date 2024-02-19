@@ -1,24 +1,26 @@
-# user
+# 状态数据返回
+# Response data structure
 type Res {
-  status: String!
-  msg: String!
+  status: String! # 状态码，Status code
+  msg: String!    # 信息，Message
 }
 
-type verifyCheckmobile {
-  status: String!
-  msg: String!
-  token: String
-  reToken: String
-  data: Userdata
+# 登录成功返回数据
+# Data returned upon successful login
+type LoginInfo {
+  token: String           # 访问令牌，Access token
+  refresh_token: String   # 刷新令牌，Refresh token
+  user: Userdata          # 用户信息，User information
 }
 
+# 用户数据
+# User data
 type Userdata {
-  name: String
-  imageUrl: String
-  sex: String
-  mobile: String
-  email: String
-  description: String
+  name: String          # 姓名，Name
+  avatar: String        # 头像链接，Avatar link
+  sex: Int              # 性别，Gender
+  area: String          # 地区，Area
+  mobile: String        # 手机号码，Mobile number
+  email: String         # 电子邮箱，Email address
+  description: String   # 描述，Description
 }
-
-
