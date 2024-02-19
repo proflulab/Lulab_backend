@@ -29,8 +29,8 @@ module.exports = app => {
     email: { type: String, unique: true },
     // Mobile Phone 手机号码
     mobile: { type: String },
-    // Area Code 手机区号
-    area_code: { type: String },
+    // Country Code 手机国家区号
+    ctry_code: { type: String },
     // Avatar 头像
     avatar: { type: String, required: true, default: "" },
     // Whether the user is blocked 是否被封锁
@@ -42,7 +42,7 @@ module.exports = app => {
   }, { timestamps: true });
 
   // 创建复合唯一索引
-  UserSchema.index({ mobile: 1, area: 1 }, { unique: true });
+  UserSchema.index({ mobile: 1, ctry_code: 1 }, { unique: true });
 
   return mongoose.model("User", UserSchema, "user");
 };
