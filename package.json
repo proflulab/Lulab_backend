@@ -7,8 +7,22 @@
     "declarations": true
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "dataloader": "^2.2.2",
+    "dayjs": "^1.11.10",
+    "dotenv": "^16.3.1",
     "egg": "^3.17.5",
-    "egg-scripts": "2"
+    "egg-cors": "^3.0.0",
+    "egg-graphql": "^2.8.0",
+    "egg-mongoose": "^4.0.1",
+    "egg-jwt": "^3.1.7",
+    "egg-redis": "^2.5.0",
+    "egg-scripts": "2",
+    "mongodb": "^5.0.0",
+    "nodemailer": "^6.9.7",
+    "twilio": "^4.19.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "egg-bin": "6",
