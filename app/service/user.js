@@ -58,16 +58,16 @@ class UserService extends Service {
   }
 
   /**
-   * @description - Finds a user by their area and mobile number.
-   * @param {string} area - The area information.
+   * @description - Finds a user by their ctry_code and mobile number.
+   * @param {string} ctry_code - The ctry_code information.
    * @param {string} mobile - The mobile number.
    * @return {Object|null} - The found user object or null if not found.
    */
-  async findUserByMobile(area, mobile) {
+  async findUserByMobile(ctry_code, mobile) {
     const { ctx } = this;
     try {
       const user = await ctx.model.User.findOne({
-        $or: [{ area }, { mobile }],
+        $or: [{ ctry_code }, { mobile }],
       });
       return user;
     } catch (err) {

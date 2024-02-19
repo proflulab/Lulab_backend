@@ -17,15 +17,15 @@ class smsService extends Service {
 
   /**
  * @description Send SMS using Twilio
- * @param {String} area - Area code
+ * @param {String} ctry_code - ctry_code code
  * @param {String} mobile - Mobile number
  * @param {String} message - Message content
  * @return {Boolean} Returns true if the SMS is sent successfully, otherwise throws an error.
  */
-  async twilio_SMS(area, mobile, message) {
+  async twilio_SMS(ctry_code, mobile, message) {
 
-    if (!area || !mobile || !message) {
-      throw new Error("Area code, mobile number, and message content are required.");
+    if (!ctry_code || !mobile || !message) {
+      throw new Error("ctry_code code, mobile number, and message content are required.");
     }
 
     const { accountSid, authToken } = this.config.twilio;
@@ -35,7 +35,7 @@ class smsService extends Service {
       const result = await client.messages.create({
         body: message,
         from: "+12568575054",
-        to: area + mobile,
+        to: ctry_code + mobile,
       });
       this.ctx.logger.info("SMS sent successfully: " + JSON.stringify(result));
       return true;
@@ -48,11 +48,11 @@ class smsService extends Service {
 
   /**
   * Send mobile verification code.
-  * @param {String} area - Area code
+  * @param {String} ctry_code - ctry_code code
   * @param {String} mobile - Mobile number
   * @param {String} operator - SMS operator
   */
-  async verifySend(area, mobile, operator) {
+  async verifySend(ctry_code, mobile, operator) {
     const { ctx } = this;
     const code = ctx.helper.rand(6);
     const message = `Your verification code is: ${code}`;
@@ -69,9 +69,9 @@ class smsService extends Service {
     }
 
     try {
-      const result = await sendSMS.call(this, area, mobile, message);
+      const result = await sendSMS.call(this, ctry_code, mobile, message);
       if (result) {
-        const cacheKey = `mobileVerify-${area}-${mobile}`;
+        const cacheKey = `mobileVerify-${ctry_code}-${mobile}`;
         await ctx.service.cache.set(cacheKey, JSON.stringify(code), 600);
       }
       return true;
@@ -84,22 +84,22 @@ class smsService extends Service {
 
   /**
  * @description - Verification code verification
- * @param {String} area - Area code
+ * @param {String} ctry_code - ctry_code code
  * @param {String} mobile - Mobile number
  * @param {String} code - Verification code
  * @return {Boolean} - True if successful
  */
-  async verifyCheck(area, mobile, code) {
+  async verifyCheck(ctry_code, mobile, code) {
     try {
       const { ctx } = this;
 
       // Validate inputs
-      if (!area || !mobile || !code) {
-        throw new Error("Area, mobile, and code are required.");
+      if (!ctry_code || !mobile || !code) {
+        throw new Error("ctry_code, mobile, and code are required.");
       }
 
       // Construct cache key securely
-      const cacheKey = `mobileVerify-${area}-${mobile}`;
+      const cacheKey = `mobileVerify-${ctry_code}-${mobile}`;
 
       // Get code from cache
       const cachedCode = await ctx.service.cache.get(cacheKey);

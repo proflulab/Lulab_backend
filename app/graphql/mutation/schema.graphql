@@ -1,5 +1,9 @@
 type Mutation {
   # 手机验证码登录
   # Mobile verification code login
-  mobileCodeLogin(mobile: String!, code: String!, area: String!): LoginInfo!
+  mobileCodeLogin(
+    mobile: String!
+    code: String!
+    ctry_code: String!
+  ): LoginInfo!
 }

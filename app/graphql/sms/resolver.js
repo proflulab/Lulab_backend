@@ -12,14 +12,14 @@
 
 module.exports = {
   Query: {
-    verifySend(root, { mobile, area }, ctx) {
-      return ctx.connector.sms.verifySend(mobile, area);
+    verifySend(root, { mobile, ctry_code }, ctx) {
+      return ctx.connector.sms.verifySend(mobile, ctry_code);
     },
   },
 
   Mutation: {
-    mobileCodeLogin(root, { area, mobile, code }, ctx) {
-      return ctx.connector.sms.mobileCodeLogin(area, mobile, code);
+    mobileCodeLogin(root, { ctry_code, mobile, code }, ctx) {
+      return ctx.connector.sms.mobileCodeLogin(ctry_code, mobile, code);
     },
   },
 };
