@@ -18,7 +18,7 @@ module.exports = app => {
     // Username 用户名
     name: { type: String, unique: true },
     // Nickname 昵称
-    nickname: { type: String, unique: true },
+    nickname: { type: String },
     // Real Name 真实姓名
     real_name: { type: String },
     // Password 密码

@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-19 09:43:14
- * @FilePath: /Lulab_backend/app/service/cache.js
+ * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
+ * @LastEditTime: 2024-02-20 03:34:23
+ * @FilePath: \Lulab_backend-1\app\service\redis.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.

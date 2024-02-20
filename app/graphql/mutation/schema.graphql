@@ -9,5 +9,5 @@ type Mutation {
 
   # 邮箱验证码登录
   # Email verification code login
-  emailCodeLogin(ctry_code: String!, email: String!, code: String!): LoginInfo!
+  emailCodeLogin(email: String!, code: String!): LoginInfo!
 }
