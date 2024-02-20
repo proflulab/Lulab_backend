@@ -6,4 +6,12 @@ type Mutation {
     code: String!
     ctry_code: String!
   ): LoginInfo!
+
+  # 修改密码
+  resetPassword(
+    ctry_code: String!
+    mobile: String!
+    code: String!
+    password: String!
+  ): resetPassword!
 }

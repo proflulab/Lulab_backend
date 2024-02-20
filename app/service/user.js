@@ -1,8 +1,8 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-19 16:48:10
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-02-20 20:31:47
  * @FilePath: /Lulab_backend/app/service/user.js
  * @Description:
  *
@@ -10,17 +10,14 @@
  */
 
 "use strict";
-
+const Helper = require("../extend/helper");
 const Service = require("egg").Service;
-
 
 /**
  * @description - User service class responsible for handling user-related logic operations.
  * @return {*}
  */
 class UserService extends Service {
-
-
   /**
    * @description - Creates a new user by saving the user information to the database.
    * @param {Object} userInfo - An object containing the user information, including the name, email, and password.
@@ -40,12 +37,11 @@ class UserService extends Service {
     }
   }
 
-
   /**
- * @description - Finds a user by their ID.
- * @param {string} userId - The ID of the user.
- * @return {Object|null} - The found user object or null if not found.
- */
+   * @description - Finds a user by their ID.
+   * @param {string} userId - The ID of the user.
+   * @return {Object|null} - The found user object or null if not found.
+   */
   async findUserById(userId) {
     const { ctx } = this;
     try {
@@ -75,7 +71,6 @@ class UserService extends Service {
       return null;
     }
   }
-
 
   /**
    * @description - Finds a user by their email address.
@@ -108,6 +103,26 @@ class UserService extends Service {
     }
   }
 
+  /**
+   * @description - change password
+   * @param {String} ctry_code - The ctry_code information.
+   * @param {string} mobile - The mobile number.
+   * @param {string} password - new password
+   * @return {Object||null} - The found user object or null if not found.
+   */
+  async updateUserByPassword(ctry_code, mobile, password) {
+    const { ctx } = this;
+    try {
+      const encrypt = Helper.encrypt(password);
+      const users = await ctx.model.User.updateOne(
+        { ctry_code, mobile },
+        { password: encrypt }
+      );
+      return users;
+    } catch (err) {
+      ctx.logger.error(err);
+      return null;
+    }
+  }
 }
-
 module.exports = UserService;

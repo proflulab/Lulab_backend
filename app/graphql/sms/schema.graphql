@@ -24,3 +24,9 @@ type Userdata {
   email: String # 电子邮箱，Email address
   description: String # 描述，Description
 }
+
+# 修改状态
+type resetPassword {
+  status: String! # 状态码，Status code
+  msg: String! # 信息，Message
+}

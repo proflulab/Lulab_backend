@@ -1,31 +1,30 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:44:06
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-19 15:53:16
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-02-20 15:19:28
  * @FilePath: /Lulab_backend/app/service/sms.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 
-
 const twilio = require("twilio");
 const Service = require("egg").Service;
 
 class smsService extends Service {
-
   /**
- * @description Send SMS using Twilio
- * @param {String} ctry_code - ctry_code code
- * @param {String} mobile - Mobile number
- * @param {String} message - Message content
- * @return {Boolean} Returns true if the SMS is sent successfully, otherwise throws an error.
- */
+   * @description Send SMS using Twilio
+   * @param {String} ctry_code - ctry_code code
+   * @param {String} mobile - Mobile number
+   * @param {String} message - Message content
+   * @return {Boolean} Returns true if the SMS is sent successfully, otherwise throws an error.
+   */
   async twilio_SMS(ctry_code, mobile, message) {
-
     if (!ctry_code || !mobile || !message) {
-      throw new Error("ctry_code code, mobile number, and message content are required.");
+      throw new Error(
+        "ctry_code code, mobile number, and message content are required."
+      );
     }
 
     const { accountSid, authToken } = this.config.twilio;
@@ -45,13 +44,12 @@ class smsService extends Service {
     }
   }
 
-
   /**
-  * Send mobile verification code.
-  * @param {String} ctry_code - ctry_code code
-  * @param {String} mobile - Mobile number
-  * @param {String} operator - SMS operator
-  */
+   * Send mobile verification code.
+   * @param {String} ctry_code - ctry_code code
+   * @param {String} mobile - Mobile number
+   * @param {String} operator - SMS operator
+   */
   async verifySend(ctry_code, mobile, operator) {
     const { ctx } = this;
     const code = ctx.helper.rand(6);
@@ -61,7 +59,6 @@ class smsService extends Service {
       // ali_SMS: this.ali_SMS
       // Add more operators as needed
     };
-
 
     const sendSMS = operators[operator] || this.twilio_SMS; // Default to twilio_SMS if operator is not supported
     if (!sendSMS) {
@@ -76,19 +73,24 @@ class smsService extends Service {
       }
       return true;
     } catch (error) {
-      ctx.logger.error("An error occurred while sending the verification code:", error);
-      throw new Error("An error occurred while sending the verification code:", error);
+      ctx.logger.error(
+        "An error occurred while sending the verification code:",
+        error
+      );
+      throw new Error(
+        "An error occurred while sending the verification code:",
+        error
+      );
     }
   }
 
-
   /**
- * @description - Verification code verification
- * @param {String} ctry_code - ctry_code code
- * @param {String} mobile - Mobile number
- * @param {String} code - Verification code
- * @return {Boolean} - True if successful
- */
+   * @description - Verification code verification
+   * @param {String} ctry_code - ctry_code code
+   * @param {String} mobile - Mobile number
+   * @param {String} code - Verification code
+   * @return {Boolean} - True if successful
+   */
   async verifyCheck(ctry_code, mobile, code) {
     try {
       const { ctx } = this;
@@ -109,13 +111,11 @@ class smsService extends Service {
         return true;
       }
       return false;
-
     } catch (error) {
       console.error("Error occurred during verification:", error);
       return false;
     }
   }
-
 }
 
 module.exports = smsService;

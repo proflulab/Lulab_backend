@@ -1,8 +1,8 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-19 17:12:02
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-02-20 19:41:39
  * @FilePath: /Lulab_backend/app/graphql/sms/resolver.js
  * @Description:
  *
@@ -20,6 +20,9 @@ module.exports = {
   Mutation: {
     mobileCodeLogin(root, { ctry_code, mobile, code }, ctx) {
       return ctx.connector.sms.mobileCodeLogin(ctry_code, mobile, code);
+    },
+    resetPassword(root, { ctry_code, mobile, code, password }, ctx) {
+      return ctx.connector.sms.resetPassword(ctry_code, mobile, code, password);
     },
   },
 };
