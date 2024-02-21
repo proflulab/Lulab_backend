@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-19 09:43:14
+ * @LastEditTime: 2024-02-22 01:53:32
  * @FilePath: /Lulab_backend/app/service/cache.js
  * @Description:
  *
@@ -13,13 +13,12 @@
 const Service = require("egg").Service;
 
 class CacheService extends Service {
-
   /**
- * @description Sets a value in the cache with an optional expiration time.
- * @param {string} key The key to set.
- * @param {*} value The value to set.
- * @param {number} [seconds] Expiration time in seconds.
- */
+   * @description Sets a value in the cache with an optional expiration time.
+   * @param {string} key The key to set.
+   * @param {*} value The value to set.
+   * @param {number} [seconds] Expiration time in seconds.
+   */
   async set(key, value, seconds) {
     try {
       if (!this.app.redis) {
@@ -66,11 +65,10 @@ class CacheService extends Service {
     }
   }
 
-
   /**
- * @description Deletes a key from the cache.
- * @param {string} key The key to delete.
- */
+   * @description Deletes a key from the cache.
+   * @param {string} key The key to delete.
+   */
   async del(key) {
     try {
       if (!this.app.redis) {
@@ -82,8 +80,6 @@ class CacheService extends Service {
       console.error("Error deleting data from cache:", error.message);
     }
   }
-
-
 }
 
 module.exports = CacheService;
