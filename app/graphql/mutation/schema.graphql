@@ -13,5 +13,5 @@ type Mutation {
     mobile: String!
     code: String!
     password: String!
-  ): resetPassword!
+  ): Res!
 }
