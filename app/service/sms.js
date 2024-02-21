@@ -1,32 +1,31 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:44:06
- * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-21 18:45:30
- * @FilePath: \Lulab_backend-1\app\service\sms.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-22 03:30:39
+ * @FilePath: /Lulab_backend/app/service/sms.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
-
 
 const Service = require("egg").Service;
 const twilio = require("twilio");
 const nodemailer = require("nodemailer");
 
 class smsService extends Service {
-
   /**
- * @description Send SMS using Twilio
- * @param {String} ctry_code - The country calling code representing a specific country's phone number format.
- * @param {String} mobile - Mobile number
- * @param {String} message - Message content
- * @return {Boolean} Returns true if the SMS is sent successfully, otherwise throws an error.
- */
+   * @description Send SMS using Twilio
+   * @param {String} ctry_code - The country calling code representing a specific country's phone number format.
+   * @param {String} mobile - Mobile number
+   * @param {String} message - Message content
+   * @return {Boolean} Returns true if the SMS is sent successfully, otherwise throws an error.
+   */
   async twilio_SMS(ctry_code, mobile, message) {
-
     if (!ctry_code || !mobile || !message) {
-      throw new Error("ctry_code code, mobile number, and message content are required.");
+      throw new Error(
+        "ctry_code code, mobile number, and message content are required."
+      );
     }
 
     const { accountSid, authToken } = this.config.twilio;
@@ -46,7 +45,6 @@ class smsService extends Service {
     }
   }
 
-
   /**
    * Send an email using Nodemailer.
    * @param {Object} mailOptions - An object containing email sending options including sender, recipient, subject, and body content
@@ -62,7 +60,7 @@ class smsService extends Service {
       const transporter = nodemailer.createTransport(this.app.config.mailer);
 
       // Send the email
-      transporter.sendMail(mailOptions, function(error, info) {
+      transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log("Error occurred: " + error.message); // Print error message
           reject(error);
@@ -74,13 +72,12 @@ class smsService extends Service {
     });
   }
 
-
   /**
-  * Send mobile verification code.
-  * @param {String} ctry_code - ctry_code code
-  * @param {String} mobile - Mobile number
-  * @param {String} operator - SMS operator
-  */
+   * Send mobile verification code.
+   * @param {String} ctry_code - ctry_code code
+   * @param {String} mobile - Mobile number
+   * @param {String} operator - SMS operator
+   */
   async sendCode_SMS(ctry_code, mobile, operator) {
     const { ctx } = this;
     const code = ctx.helper.rand(6);
@@ -90,7 +87,6 @@ class smsService extends Service {
       // ali_SMS: this.ali_SMS
       // Add more operators as needed
     };
-
 
     const sendSMS = operators[operator] || this.twilio_SMS; // Default to twilio_SMS if operator is not supported
     if (!sendSMS) {
@@ -105,24 +101,28 @@ class smsService extends Service {
       }
       return true;
     } catch (error) {
-      ctx.logger.error("An error occurred while sending the verification code:", error);
-      throw new Error("An error occurred while sending the verification code:", error);
+      ctx.logger.error(
+        "An error occurred while sending the verification code:",
+        error
+      );
+      throw new Error(
+        "An error occurred while sending the verification code:",
+        error
+      );
     }
   }
 
-
   /**
- * Send an email with verification code to the specified account.
- * @param {String} account - The recipient's email address.
- * @return {Boolean} - True if the email is sent successfully, false otherwise.
- */
+   * Send an email with verification code to the specified account.
+   * @param {String} account - The recipient's email address.
+   * @return {Boolean} - True if the email is sent successfully, false otherwise.
+   */
   async sendCode_Email(account) {
-    try {
-      const { ctx } = this;
+    const { ctx } = this;
 
-      const code = ctx.helper.rand(6);
-      // Define the email content template
-      const emailContent = `
+    const code = ctx.helper.rand(6);
+    // Define the email content template
+    const emailContent = `
       <h1>尊敬的:${account}用户</h1>
       <p style="font-size: 18px;color:#000;">
       您的验证码为：
@@ -132,34 +132,33 @@ class smsService extends Service {
       <p style="font-size: 1.5rem;color:#999;">该验证码5分钟内有效，请勿泄漏于他人！</p>
       `;
 
-      // Define the email content
-      const emailOptions = {
-        from: this.config.mailer.auth.user, // Sender's email address
-        to: account, // Recipient's email address
-        subject: "Some Website - Email Verification Code", // Email subject
-        html: emailContent, // Email content
-      };
+    // Define the email content
+    const emailOptions = {
+      from: this.config.mailer.auth.user, // Sender's email address
+      to: account, // Recipient's email address
+      subject: "Some Website - Email Verification Code", // Email subject
+      html: emailContent, // Email content
+    };
 
+    try {
       // Send the email
       await this.nodemailer(emailOptions); // Pass sender's email and password to the helper method
+
       const cacheKey = `emailVerify${account}`;
       await ctx.service.redis.set(cacheKey, JSON.stringify(code), 600);
-
-      return true; // Email sent successfully
     } catch (error) {
       console.error("Error occurred while sending email:", error);
-      return false; // Email sending failed
+      throw new Error("Email sending failed:"); // Email sending failed
     }
   }
 
-
   /**
- * @description - Verify the provided verification code for a phone number or email address.
- * @param {String} identifier - The identifier (country code + mobile number for phone verification, email address for email verification).
- * @param {String} code - The verification code to be checked.
- * @param {String} type - The type of verification (either "mobile" or "email").
- * @return {Boolean} - True if the verification is successful; otherwise, false.
- */
+   * @description - Verify the provided verification code for a phone number or email address.
+   * @param {String} identifier - The identifier (country code + mobile number for phone verification, email address for email verification).
+   * @param {String} code - The verification code to be checked.
+   * @param {String} type - The type of verification (either "mobile" or "email").
+   * @return {Boolean} - True if the verification is successful; otherwise, false.
+   */
   async verifyCheck(identifier, code, type) {
     try {
       const { redis } = this.ctx.service;
@@ -187,8 +186,6 @@ class smsService extends Service {
       return false;
     }
   }
-
-
 }
 
 module.exports = smsService;

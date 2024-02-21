@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-20 04:26:17
- * @FilePath: \Lulab_backend-1\app\graphql\auth\resolver.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-22 02:41:53
+ * @FilePath: /Lulab_backend/app/graphql/auth/resolver.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -28,6 +28,15 @@ module.exports = {
 
     emailCodeLogin(root, { email, code }, ctx) {
       return ctx.connector.auth.emailCodeLogin(email, code);
+    },
+
+    resetPassword(root, { ctry_code, mobile, code, password }, ctx) {
+      return ctx.connector.auth.resetPassword(
+        ctry_code,
+        mobile,
+        code,
+        password
+      );
     },
   },
 };

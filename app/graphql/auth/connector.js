@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-21 18:43:27
- * @FilePath: \Lulab_backend-1\app\graphql\auth\connector.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-22 03:17:32
+ * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -41,19 +41,24 @@ class LaunchConnector {
    * @return {Promise} - Result of the email service call.
    */
   async sendEmailCode(emailAccount) {
-    try {
-      // Validate the email format
-      if (!this.helper.validateEmailFormat(emailAccount)) {
-        throw new Error("Invalid email format. Please provide a valid email address.");
-      }
+    // Validate the email format
+    if (!this.helper.validateEmailFormat(emailAccount)) {
+      throw new Error(
+        "Invalid email format. Please provide a valid email address."
+      );
+    }
 
+    try {
       // Apply request rate limiting
       await this.ctx.applyRequestLimit(emailAccount, 1, 60);
 
       // Call the SMS service to send the verification code to the email account
       await this.service.sms.sendCode_Email(emailAccount);
 
-      return { status: "200", msg: "Verification code has been sent successfully." };
+      return {
+        status: "200",
+        msg: "Verification code has been sent successfully.",
+      };
     } catch (error) {
       throw error;
     }
@@ -68,18 +73,33 @@ class LaunchConnector {
    */
   async mobileCodeLogin(ctry_code, mobile, code) {
     try {
-      const result = await this.service.sms.verifyCheck(ctry_code + mobile, code, "mobile");
+      const result = await this.service.sms.verifyCheck(
+        ctry_code + mobile,
+        code,
+        "mobile"
+      );
       if (result) {
-        const user = await this.service.user.findUserByMobile(ctry_code, mobile);
-        const avatar = "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
+        const user = await this.service.user.findUserByMobile(
+          ctry_code,
+          mobile
+        );
+        const avatar =
+          "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
         if (!user) {
-          const randPwd = this.helper.genRandCode(12, [ "num", "lower", "upper", "special" ]);
+          const randPwd = this.helper.genRandCode(12, [
+            "num",
+            "lower",
+            "upper",
+            "special",
+          ]);
           const password = this.helper.encrypt(randPwd);
 
           const userinfo = { ctry_code, mobile, password, avatar };
           const user_creat = await this.service.user.createUser(userinfo);
-          const { token, refresh_token } = await this.jwt.generateToken(user_creat._id);
+          const { token, refresh_token } = await this.jwt.generateToken(
+            user_creat._id
+          );
           await this.redis.set(result._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
@@ -89,35 +109,45 @@ class LaunchConnector {
         return { token, refresh_token, user };
       }
     } catch (error) {
-      this.logger.error("Error occurred during email-based verification code login:", error);
+      this.logger.error(
+        "Error occurred during email-based verification code login:",
+        error
+      );
       throw error;
     }
   }
 
-
   /**
- * @description Performs email-based verification code login.
- * @param {String} email - User's email address.
- * @param {String} code - Verification code provided by the user.
- * @return {Object} - Object containing the generated token, refresh token, and user object.
- * @property {String} token - JWT token for authentication.
- * @property {String} refresh_token - Refresh token for token renewal.
- * @property {Object} user - User object containing user information.
- */
+   * @description Performs email-based verification code login.
+   * @param {String} email - User's email address.
+   * @param {String} code - Verification code provided by the user.
+   * @return {Object} - Object containing the generated token, refresh token, and user object.
+   * @property {String} token - JWT token for authentication.
+   * @property {String} refresh_token - Refresh token for token renewal.
+   * @property {Object} user - User object containing user information.
+   */
   async emailCodeLogin(email, code) {
     try {
       const result = await this.service.sms.verifyCheck(email, code, "email");
       if (result) {
         const user = await this.service.user.findUserByEmail(email);
-        const avatar = "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
+        const avatar =
+          "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
         if (!user) {
-          const randPwd = this.helper.genRandCode(12, [ "num", "lower", "upper", "special" ]);
+          const randPwd = this.helper.genRandCode(12, [
+            "num",
+            "lower",
+            "upper",
+            "special",
+          ]);
           const password = this.helper.encrypt(randPwd);
-
+          // todo: 第一次注册用户没有获取到_ID
           const userinfo = { email, password, avatar };
           const user_creat = await this.service.user.createUser(userinfo);
-          const { token, refresh_token } = await this.jwt.generateToken(user_creat._id);
+          const { token, refresh_token } = await this.jwt.generateToken(
+            user_creat._id
+          );
           await this.redis.set(result._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
@@ -128,12 +158,56 @@ class LaunchConnector {
       }
       throw new Error("Invalid verification code.");
     } catch (error) {
-      this.logger.error("Error occurred during email-based verification code login:", error);
+      this.logger.error(
+        "Error occurred during email-based verification code login:",
+        error
+      );
       throw error;
     }
   }
 
-}
+  /**
+   * @description Change user password
+   * @param {String} ctry_code - Country code.
+   * @param {String} mobile - Mobile number.
+   * @param {String} code - Verification code.
+   * @param {String} password - New password
+   * @return {Object} - Object indicating password change status
+   */
+  async resetPassword(ctry_code, mobile, code, password) {
+    // Verify code
+    const isValidCode = await this.service.sms.verifyCheck(
+      ctry_code + mobile,
+      code,
+      "mobile"
+    );
+    if (!isValidCode) {
+      throw new Error("Invalid verification code");
+    }
 
+    // Find user by mobile number
+    const user = await this.service.user.findUserByMobile(ctry_code, mobile);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Compare new password with old password
+    const isSamePassword = this.helper.compare(password, user.password);
+    if (isSamePassword) {
+      throw new Error(
+        "The new password cannot be the same as the old password"
+      );
+    }
+
+    try {
+      // Update user password
+      await this.service.user.updateUserByPassword(ctry_code, mobile, password);
+      return { status: "100", msg: "Password reset complete" };
+    } catch (error) {
+      console.error("Failed to change password:", error);
+      throw new Error("Failed to change password:");
+    }
+  }
+}
 
 module.exports = LaunchConnector;
