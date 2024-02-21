@@ -1,8 +1,8 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-02-20 20:31:47
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-22 01:54:06
  * @FilePath: /Lulab_backend/app/service/user.js
  * @Description:
  *
@@ -10,7 +10,6 @@
  */
 
 "use strict";
-const Helper = require("../extend/helper");
 const Service = require("egg").Service;
 
 /**
@@ -99,7 +98,7 @@ class UserService extends Service {
       return users;
     } catch (err) {
       ctx.logger.error(err);
-      return null;
+      throw err;
     }
   }
 
@@ -113,7 +112,7 @@ class UserService extends Service {
   async updateUserByPassword(ctry_code, mobile, password) {
     const { ctx } = this;
     try {
-      const encrypt = Helper.encrypt(password);
+      const encrypt = ctx.helper.encrypt(password);
       const users = await ctx.model.User.updateOne(
         { ctry_code, mobile },
         { password: encrypt }
@@ -121,7 +120,7 @@ class UserService extends Service {
       return users;
     } catch (err) {
       ctx.logger.error(err);
-      return null;
+      throw err;
     }
   }
 }

@@ -1,8 +1,8 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-02-20 20:35:53
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-22 01:52:59
  * @FilePath: /Lulab_backend/app/graphql/sms/connector.js
  * @Description:
  *
@@ -84,53 +84,47 @@ class LaunchConnector {
       throw error;
     }
   }
+
   /**
    * @description Change user password
-   * @param {String} ctry_code - ctry_code code.
+   * @param {String} ctry_code - Country code.
    * @param {String} mobile - Mobile number.
    * @param {String} code - Verification code.
-   * @param {String} password - new password
-   * @return {Object} - Object Including changing user password
+   * @param {String} password - New password
+   * @return {Object} - Object indicating password change status
    */
   async resetPassword(ctry_code, mobile, code, password) {
-    try {
-      const getcode = await this.service.sms.verifyCheck(
-        ctry_code,
-        mobile,
-        code
+    // Verify code
+    const isValidCode = await this.service.sms.verifyCheck(
+      ctry_code,
+      mobile,
+      code
+    );
+    if (!isValidCode) {
+      throw new Error("Invalid verification code");
+    }
+
+    // Find user by mobile number
+    const user = await this.service.user.findUserByMobile(ctry_code, mobile);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Compare new password with old password
+    const isSamePassword = this.helper.compare(password, user.password);
+    if (isSamePassword) {
+      throw new Error(
+        "The new password cannot be the same as the old password"
       );
-      console.log(getcode);
-      if (getcode) {
-        const user = await this.service.user.findUserByMobile(
-          ctry_code,
-          mobile
-        );
-        console.log(user);
-        if (this.helper.compare(password, user.password)) {
-          return {
-            status: "200",
-            msg: "The new password cannot be the same as the old password",
-          };
-        }
-        const result = await this.service.user.updateUserByPassword(
-          ctry_code,
-          mobile,
-          password
-        );
-        if (result) {
-          return {
-            status: "100",
-            msg: "Password reset complete",
-          };
-        }
-        return {
-          status: "400",
-          msg: "Failed to change password",
-        };
-      }
+    }
+
+    try {
+      // Update user password
+      await this.service.user.updateUserByPassword(ctry_code, mobile, password);
+      return { status: "100", msg: "Password reset complete" };
     } catch (error) {
-      this.logger.error("", error);
-      throw error;
+      console.error("Failed to change password:", error);
+      throw new Error("Failed to change password:");
     }
   }
 }
