@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-20 11:25:00
+ * @LastEditTime: 2024-02-21 18:43:27
  * @FilePath: \Lulab_backend-1\app\graphql\auth\connector.js
  * @Description:
  *
@@ -74,7 +74,7 @@ class LaunchConnector {
         const avatar = "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
         if (!user) {
-          const randPwd = this.helper.genRandCode(12, ["num", "lower", "upper", "special"]);
+          const randPwd = this.helper.genRandCode(12, [ "num", "lower", "upper", "special" ]);
           const password = this.helper.encrypt(randPwd);
 
           const userinfo = { ctry_code, mobile, password, avatar };
@@ -89,21 +89,21 @@ class LaunchConnector {
         return { token, refresh_token, user };
       }
     } catch (error) {
-      this.logger.error("", error);
+      this.logger.error("Error occurred during email-based verification code login:", error);
       throw error;
     }
   }
 
 
   /**
-   * @description Performs email-based verification code login.
-   * @param {String} email - User's email address.
-   * @param {String} code - Verification code provided by the user.
-   * @return {Object} - Object containing the generated token, refresh token, and user object.
-   * @property {String} token - JWT token for authentication.
-   * @property {String} refresh_token - Refresh token for token renewal.
-   * @property {Object} user - User object containing user information.
-   */
+ * @description Performs email-based verification code login.
+ * @param {String} email - User's email address.
+ * @param {String} code - Verification code provided by the user.
+ * @return {Object} - Object containing the generated token, refresh token, and user object.
+ * @property {String} token - JWT token for authentication.
+ * @property {String} refresh_token - Refresh token for token renewal.
+ * @property {Object} user - User object containing user information.
+ */
   async emailCodeLogin(email, code) {
     try {
       const result = await this.service.sms.verifyCheck(email, code, "email");
@@ -112,7 +112,7 @@ class LaunchConnector {
         const avatar = "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
         if (!user) {
-          const randPwd = this.helper.genRandCode(12, ["num", "lower", "upper", "special"]);
+          const randPwd = this.helper.genRandCode(12, [ "num", "lower", "upper", "special" ]);
           const password = this.helper.encrypt(randPwd);
 
           const userinfo = { email, password, avatar };
@@ -126,8 +126,9 @@ class LaunchConnector {
         await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
+      throw new Error("Invalid verification code.");
     } catch (error) {
-      this.logger.error("", error);
+      this.logger.error("Error occurred during email-based verification code login:", error);
       throw error;
     }
   }

@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:44:06
  * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-20 14:19:50
+ * @LastEditTime: 2024-02-21 18:45:30
  * @FilePath: \Lulab_backend-1\app\service\sms.js
  * @Description:
  *
@@ -18,7 +18,7 @@ class smsService extends Service {
 
   /**
  * @description Send SMS using Twilio
- * @param {String} ctry_code - ctry_code code
+ * @param {String} ctry_code - The country calling code representing a specific country's phone number format.
  * @param {String} mobile - Mobile number
  * @param {String} message - Message content
  * @return {Boolean} Returns true if the SMS is sent successfully, otherwise throws an error.
@@ -154,15 +154,15 @@ class smsService extends Service {
 
 
   /**
-   * @description - Verification code verification for phone or email
-   * @param {String} identifier - Identifier (ctry_code + mobile for phone, email for email)
-   * @param {String} code - Verification code
-   * @param {String} type - Type of verification (mobile or email)
-   * @return {Boolean} - True if successful
-   */
+ * @description - Verify the provided verification code for a phone number or email address.
+ * @param {String} identifier - The identifier (country code + mobile number for phone verification, email address for email verification).
+ * @param {String} code - The verification code to be checked.
+ * @param {String} type - The type of verification (either "mobile" or "email").
+ * @return {Boolean} - True if the verification is successful; otherwise, false.
+ */
   async verifyCheck(identifier, code, type) {
     try {
-      const { ctx } = this;
+      const { redis } = this.ctx.service;
 
       // Validate inputs
       if (!identifier || !code || !type) {
@@ -173,15 +173,15 @@ class smsService extends Service {
       const cacheKey = `${type}Verify${identifier}`;
 
       // Get code from cache
-      const cachedCode = await ctx.service.redis.get(cacheKey);
+      const cachedCode = await redis.get(cacheKey);
 
       // Compare codes
       if (cachedCode === code) {
-        // todo: 删除存储的验证码
+        await redis.del(cacheKey);
         return true;
       }
-      return false;
-
+      // If the provided code does not match the stored code, throw an error
+      throw new Error("Invalid verification code.");
     } catch (error) {
       console.error("Error occurred during verification:", error);
       return false;
