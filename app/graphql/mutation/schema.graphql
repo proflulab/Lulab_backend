@@ -2,10 +2,14 @@ type Mutation {
   # 手机验证码登录
   # Mobile verification code login
   mobileCodeLogin(
+    ctry_code: String!
     mobile: String!
     code: String!
-    ctry_code: String!
   ): LoginInfo!
+
+  # 邮箱验证码登录
+  # Email verification code login
+  emailCodeLogin(email: String!, code: String!): LoginInfo!
 
   # 修改密码
   resetPassword(

@@ -1,5 +1,9 @@
 type Query {
   # 发送手机验证码
   # Send verification code to mobile phone
-  verifySend(mobile: String!, ctry_code: String!): Res!
+  sendSmsCode(mobile: String!, ctry_code: String!): Res!
+
+  # 发送邮箱验证码
+  # Send verification code to email
+  sendEmailCode(email: String!): Res!
 }

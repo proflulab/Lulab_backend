@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-19 18:10:32
- * @FilePath: /Lulab_backend/config/config.default.js
+ * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
+ * @LastEditTime: 2024-02-20 03:12:08
+ * @FilePath: \Lulab_backend-1\config\config.default.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -26,7 +26,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + "_1707728659079_3630";
 
   // add your middleware config here
-  config.middleware = [ "graphql" ];
+  config.middleware = ["graphql"];
 
   config.graphql = {
     router: "/graphql",
@@ -48,7 +48,7 @@ module.exports = appInfo => {
     expire: 7200, // 2小时
     refresh_expire: 259200, // 3天
     secret: process.env.JWT_SECRET,
-    ignore: [ "/api/registered", "/api/login" ], // 哪些请求不需要认证
+    ignore: ["/api/registered", "/api/login"], // 哪些请求不需要认证
     // expiresIn: '24h',
   };
 
@@ -79,6 +79,19 @@ module.exports = appInfo => {
     twilio: {
       accountSid: process.env.TWILIO_ACCOUNT_SID,
       authToken: process.env.TWILIO_AUTH_TOKEN,
+    },
+
+
+    // Email service configuration
+    mailer: {
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      secure: true,
+      // service: "Gmail", // Use Gmail as the mail service
+      auth: {
+        user: process.env.EMAIL_USER, // Sender's email address
+        pass: process.env.EMAIL_PASS, // Sender's email password
+      },
     },
   };
 
