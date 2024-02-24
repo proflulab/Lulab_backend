@@ -32,7 +32,7 @@ class UserService extends Service {
       return user;
     } catch (err) {
       ctx.logger.error(err);
-      return null;
+      throw err;
     }
   }
 

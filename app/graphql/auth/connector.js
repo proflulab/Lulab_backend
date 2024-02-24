@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-22 03:17:32
+ * @LastEditTime: 2024-02-24 12:49:08
  * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
@@ -100,7 +100,7 @@ class LaunchConnector {
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat._id
           );
-          await this.redis.set(result._id, token, 7200);
+          await this.redis.set(user_creat._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
 
@@ -142,13 +142,13 @@ class LaunchConnector {
             "special",
           ]);
           const password = this.helper.encrypt(randPwd);
-          // todo: 第一次注册用户没有获取到_ID
           const userinfo = { email, password, avatar };
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat._id
           );
-          await this.redis.set(result._id, token, 7200);
+          console.log(user_creat);
+          await this.redis.set(user_creat._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
 
