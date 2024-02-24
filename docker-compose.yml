@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  # Node.js 应用服务
+  nodejs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${NODEJS_PORT:-7001}:7001"
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - Lulab-network
+    environment:
+      - MONGODB_HOST=${MONGODB_HOST:-127.0.0.1}
+      - REDIS_HOST=${REDIS_HOST:-127.0.0.1}
+
+  # MongoDB 服务
+  mongodb:
+    image: mongo
+    ports:
+      - "${MONGODB_PORT:-27017}:27017"
+    networks:
+      - Lulab-network
+
+  # Redis 服务
+  redis:
+    image: redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    networks:
+      - Lulab-network
+
+networks:
+  Lulab-network:
+    driver: bridge

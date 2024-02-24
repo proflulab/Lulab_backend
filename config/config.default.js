@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
- * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-20 03:12:08
- * @FilePath: \Lulab_backend-1\config\config.default.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-25 00:46:31
+ * @FilePath: /Lulab_backend/config/config.default.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -15,7 +15,7 @@ require("dotenv").config();
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
-module.exports = appInfo => {
+module.exports = (appInfo) => {
   /**
    * built-in config
    * @type {Egg.EggAppConfig}
@@ -58,13 +58,13 @@ module.exports = appInfo => {
   };
 
   config.mongoose = {
-    url: process.env.MONGOOSE_URL,
+    url: `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE}`,
     options: {},
   };
 
   config.redis = {
     client: {
-      port: 6379, // Redis port
+      port: process.env.REDIS_PORT, // Redis port
       host: process.env.REDIS_HOST, // Redis host
       password: "auth",
       db: 0,
@@ -80,7 +80,6 @@ module.exports = appInfo => {
       accountSid: process.env.TWILIO_ACCOUNT_SID,
       authToken: process.env.TWILIO_AUTH_TOKEN,
     },
-
 
     // Email service configuration
     mailer: {
