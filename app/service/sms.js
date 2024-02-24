@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:44:06
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-22 03:30:39
+ * @LastEditTime: 2024-02-24 12:32:22
  * @FilePath: /Lulab_backend/app/service/sms.js
  * @Description:
  *
@@ -160,17 +160,17 @@ class smsService extends Service {
    * @return {Boolean} - True if the verification is successful; otherwise, false.
    */
   async verifyCheck(identifier, code, type) {
+    const { redis } = this.ctx.service;
+
+    // Validate inputs
+    if (!identifier || !code || !type) {
+      throw new Error("Identifier, code, and type are required.");
+    }
+
+    // Construct cache key securely
+    const cacheKey = `${type}Verify${identifier}`;
+
     try {
-      const { redis } = this.ctx.service;
-
-      // Validate inputs
-      if (!identifier || !code || !type) {
-        throw new Error("Identifier, code, and type are required.");
-      }
-
-      // Construct cache key securely
-      const cacheKey = `${type}Verify${identifier}`;
-
       // Get code from cache
       const cachedCode = await redis.get(cacheKey);
 
@@ -183,7 +183,7 @@ class smsService extends Service {
       throw new Error("Invalid verification code.");
     } catch (error) {
       console.error("Error occurred during verification:", error);
-      return false;
+      throw error;
     }
   }
 }
