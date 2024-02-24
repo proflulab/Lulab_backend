@@ -2,8 +2,11 @@ type Mutation {
   # 手机验证码登录
   # Mobile verification code login
   mobileCodeLogin(
+    # 国家区号，例如+1代表美国 (Country code, e.g., +1 for the United States)
     ctry_code: String!
+    # 手机号码 (Mobile phone number)
     mobile: String!
+    # 验证码 (Verification code)
     code: String!
   ): LoginInfo!
 
@@ -12,10 +15,23 @@ type Mutation {
   emailCodeLogin(email: String!, code: String!): LoginInfo!
 
   # 修改密码
+  # Reset password
   resetPassword(
+    # 国家区号，例如+1代表美国 (Country code, e.g., +1 for the United States)
     ctry_code: String!
+    # 手机号码 (Mobile phone number)
     mobile: String!
+    # 验证码 (Verification code)
     code: String!
+    # 新密码 (New password)
     password: String!
   ): Res!
+
+  # todo: 通过验证码修改密码接口
+
+  # todo: 退出登录接口，消除token
+
+  # todo: 修改用户信息接口
+
+  # todo: 用户退出登录接口
 }

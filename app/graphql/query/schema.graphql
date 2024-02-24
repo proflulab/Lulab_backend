@@ -6,4 +6,6 @@ type Query {
   # 发送邮箱验证码
   # Send verification code to email
   sendEmailCode(email: String!): Res!
+
+  # todo: 查询个人信息接口
 }

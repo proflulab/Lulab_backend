@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
- * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-20 03:12:08
- * @FilePath: \Lulab_backend-1\config\config.default.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-23 00:17:23
+ * @FilePath: /Lulab_backend/config/config.default.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -15,7 +15,7 @@ require("dotenv").config();
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
-module.exports = appInfo => {
+module.exports = (appInfo) => {
   /**
    * built-in config
    * @type {Egg.EggAppConfig}
@@ -26,7 +26,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + "_1707728659079_3630";
 
   // add your middleware config here
-  config.middleware = ["graphql"];
+  config.middleware = ["auth", "graphql"];
 
   config.graphql = {
     router: "/graphql",
@@ -80,7 +80,6 @@ module.exports = appInfo => {
       accountSid: process.env.TWILIO_ACCOUNT_SID,
       authToken: process.env.TWILIO_AUTH_TOKEN,
     },
-
 
     // Email service configuration
     mailer: {

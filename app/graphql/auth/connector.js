@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-22 03:17:32
+ * @LastEditTime: 2024-02-22 18:45:45
  * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
@@ -83,6 +83,7 @@ class LaunchConnector {
           ctry_code,
           mobile
         );
+        // todo: 需要设计合适的默认头像
         const avatar =
           "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 

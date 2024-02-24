@@ -1,26 +1,38 @@
 # 状态数据返回
 # Response data structure
 type Res {
-  status: String! # 状态码，Status code
-  msg: String! # 信息，Message
+  # 状态码，Status code
+  status: String!
+  # 信息，Message
+  msg: String!
 }
 
 # 登录成功返回数据
 # Data returned upon successful login
 type LoginInfo {
-  token: String # 访问令牌，Access token
-  refresh_token: String # 刷新令牌，Refresh token
-  user: Userdata # 用户信息，User information
+  # 访问令牌，Access token
+  token: String
+  # 刷新令牌，Refresh token
+  refresh_token: String
+  # 用户信息，User information
+  user: Userdata
 }
 
 # 用户数据
 # User data
 type Userdata {
-  name: String # 姓名，Name
-  avatar: String # 头像链接，Avatar link
-  sex: Int # 性别，Gender
-  ctry_code: String # 地区，ctry_code
-  mobile: String # 手机号码，Mobile number
-  email: String # 电子邮箱，Email address
-  description: String # 描述，Description
+  # 姓名，Name
+  name: String
+  # 头像链接，Avatar link
+  avatar: String
+  # 性别，Gender
+  sex: Int
+  # 地区，ctry_code
+  ctry_code: String
+  # 手机号码，Mobile number
+  mobile: String
+  # 电子邮箱，Email address
+  email: String
+  # 描述，Description
+  description: String
 }
