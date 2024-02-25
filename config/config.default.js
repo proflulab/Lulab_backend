@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-25 00:46:31
+ * @LastEditTime: 2024-02-25 17:05:39
  * @FilePath: /Lulab_backend/config/config.default.js
  * @Description:
  *
@@ -21,6 +21,14 @@ module.exports = (appInfo) => {
    * @type {Egg.EggAppConfig}
    **/
   const config = (exports = {});
+
+  config.cluster = {
+    listen: {
+      path: "",
+      port: parseInt(process.env.NODEJS_PORT),
+      hostname: "127.0.0.1",
+    },
+  };
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + "_1707728659079_3630";
@@ -58,7 +66,7 @@ module.exports = (appInfo) => {
   };
 
   config.mongoose = {
-    url: `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE}`,
+    url: `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/?authSource=admin`,
     options: {},
   };
 

@@ -19,9 +19,14 @@ services:
 
   # MongoDB 服务
   mongodb:
-    image: mongo
+    image: mongo:4.4.9
     ports:
       - "${MONGODB_PORT:-27017}:27017"
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
     networks:
       - Lulab-network
 

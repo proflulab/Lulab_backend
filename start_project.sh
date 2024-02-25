@@ -3,7 +3,7 @@
  # @Author: 杨仕明 shiming.y@qq.com
  # @Date: 2024-02-25 00:20:26
  # @LastEditors: 杨仕明 shiming.y@qq.com
- # @LastEditTime: 2024-02-25 00:51:30
+ # @LastEditTime: 2024-02-25 16:39:18
  # @FilePath: /Lulab_backend/start_project.sh
  # @Description: 
  # 
@@ -12,6 +12,8 @@
 
 # 克隆项目并进入项目目录
 git clone -b develop https://github.com/proflulab/Lulab_backend.git
+
+# git clone -b feature/docker_deployment https://github.com/proflulab/Lulab_backend.git
 
 cd Lulab_backend
 
