@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-25 17:05:39
+ * @LastEditTime: 2024-02-25 20:13:21
  * @FilePath: /Lulab_backend/config/config.default.js
  * @Description:
  *
@@ -26,7 +26,7 @@ module.exports = (appInfo) => {
     listen: {
       path: "",
       port: parseInt(process.env.NODEJS_PORT),
-      hostname: "127.0.0.1",
+      hostname: "0.0.0.0",
     },
   };
 
@@ -74,7 +74,7 @@ module.exports = (appInfo) => {
     client: {
       port: process.env.REDIS_PORT, // Redis port
       host: process.env.REDIS_HOST, // Redis host
-      password: "auth",
+      password: null,
       db: 0,
     },
   };
