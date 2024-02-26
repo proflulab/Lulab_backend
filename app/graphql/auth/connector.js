@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-02-25 09:32:05
+ * @LastEditTime: 2024-02-26 15:41:50
  * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\5d69da8\Lulab_backend\app\graphql\auth\connector.js
  * @Description:
  *
@@ -83,8 +83,6 @@ class LaunchConnector {
           ctry_code,
           mobile
         );
-        const name = mobile;
-        const nickname = `user${code}${mobile}`;
         const avatar =
           "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
@@ -101,8 +99,6 @@ class LaunchConnector {
             ctry_code,
             mobile,
             password,
-            name,
-            nickname,
             avatar,
           };
           const user_creat = await this.service.user.createUser(userinfo);
@@ -140,8 +136,6 @@ class LaunchConnector {
       const result = await this.service.sms.verifyCheck(email, code, "email");
       if (result) {
         const user = await this.service.user.findUserByEmail(email);
-        const name = email;
-        const nickname = `user${code}${email}`;
         const avatar =
           "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
@@ -153,7 +147,7 @@ class LaunchConnector {
             "special",
           ]);
           const password = this.helper.encrypt(randPwd);
-          const userinfo = { email, password, name, nickname, avatar };
+          const userinfo = { email, password, avatar };
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat._id
