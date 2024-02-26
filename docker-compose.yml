@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   # Node.js 应用服务
-  nodejs-app:
+  lulabsever:
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,8 +14,7 @@ services:
     networks:
       - Lulab-network
     environment:
-      - MONGODB_HOST=${MONGODB_HOST:-127.0.0.1}
-      - REDIS_HOST=${REDIS_HOST:-127.0.0.1}
+      TZ: Asia/Shanghai
 
   # MongoDB 服务
   mongodb:

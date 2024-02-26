@@ -1,21 +1,29 @@
-# 使用Node.js作为基础镜像
+# Use Node.js as base image
 FROM node:18
 
-# 设置工作目录
+# Set working directory
 WORKDIR /app
 
-# 将依赖文件拷贝到工作目录
+# Copy dependency files to working directory
 COPY package*.json ./
 
-# 安装依赖
-RUN npm install
+# Install dependencies (choose different registry based on IP geolocation)
+RUN location=$(curl -sSL https://myip.ipip.net/) \
+    && echo $location \
+    && if echo "$location" | grep -q "中国"; then \
+    echo "The request comes from China."; \
+    npm install --registry=https://registry.npmmirror.com; \
+    else \
+    npm install; \
+    fi
 
-# 拷贝应用程序代码到工作目录
+# Copy application code to working directory
 COPY . .
 
-# 暴露应用程序运行的端口（如果有需要）
+# Expose the port where the application runs (if needed)
 EXPOSE 7001
 
-# 运行启动命令
-CMD ["npm", "start"]
-
+# todo: When using "npm start," it encounters an error, exits immediately upon successful startup, and the reason is unknown. For now, "npm run dev" is being used instead.
+# Run the startup command
+# CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
