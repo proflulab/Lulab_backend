@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
- * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-20 03:12:08
- * @FilePath: \Lulab_backend-1\config\config.default.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-25 22:43:57
+ * @FilePath: /Lulab_backend/config/config.default.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -15,12 +15,38 @@ require("dotenv").config();
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
-module.exports = appInfo => {
+module.exports = (appInfo) => {
   /**
    * built-in config
    * @type {Egg.EggAppConfig}
    **/
   const config = (exports = {});
+
+  const {
+    NODEJS_PORT,
+    JWT_SECRET,
+    MONGODB_USERNAME,
+    MONGODB_PASSWORD,
+    MONGODB_HOST,
+    MONGODB_PORT,
+    MONGODB_DATABASE,
+    REDIS_PORT,
+    REDIS_HOST,
+    TWILIO_ACCOUNT_SID,
+    TWILIO_AUTH_TOKEN,
+    EMAIL_HOST,
+    EMAIL_PORT,
+    EMAIL_USER,
+    EMAIL_PASS,
+  } = process.env;
+
+  config.cluster = {
+    listen: {
+      path: "",
+      port: parseInt(NODEJS_PORT),
+      hostname: "0.0.0.0",
+    },
+  };
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + "_1707728659079_3630";
@@ -47,7 +73,7 @@ module.exports = appInfo => {
   config.jwt = {
     expire: 7200, // 2小时
     refresh_expire: 259200, // 3天
-    secret: process.env.JWT_SECRET,
+    secret: JWT_SECRET,
     ignore: ["/api/registered", "/api/login"], // 哪些请求不需要认证
     // expiresIn: '24h',
   };
@@ -58,15 +84,15 @@ module.exports = appInfo => {
   };
 
   config.mongoose = {
-    url: process.env.MONGOOSE_URL,
+    url: `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE}?authSource=admin`,
     options: {},
   };
 
   config.redis = {
     client: {
-      port: 6379, // Redis port
-      host: process.env.REDIS_HOST, // Redis host
-      password: "auth",
+      port: REDIS_PORT, // Redis port
+      host: REDIS_HOST, // Redis host
+      password: null,
       db: 0,
     },
   };
@@ -77,20 +103,19 @@ module.exports = appInfo => {
     // Find your Account SID and Auth Token at twilio.com/console
     // and set the environment variables. See http://twil.io/secure
     twilio: {
-      accountSid: process.env.TWILIO_ACCOUNT_SID,
-      authToken: process.env.TWILIO_AUTH_TOKEN,
+      accountSid: TWILIO_ACCOUNT_SID,
+      authToken: TWILIO_AUTH_TOKEN,
     },
-
 
     // Email service configuration
     mailer: {
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
+      host: EMAIL_HOST,
+      port: EMAIL_PORT,
       secure: true,
       // service: "Gmail", // Use Gmail as the mail service
       auth: {
-        user: process.env.EMAIL_USER, // Sender's email address
-        pass: process.env.EMAIL_PASS, // Sender's email password
+        user: EMAIL_USER, // Sender's email address
+        pass: EMAIL_PASS, // Sender's email password
       },
     },
   };
