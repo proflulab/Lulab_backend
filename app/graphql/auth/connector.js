@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-02-26 15:41:50
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\5d69da8\Lulab_backend\app\graphql\auth\connector.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-27 15:22:34
+ * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -235,7 +235,7 @@ class LaunchConnector {
         await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
-      throw new Error("Failed to Login for password");
+      throw new Error("Password is incorrect. Failed to login.");
     } catch (error) {
       this.logger.error("Error during password verification login:", error);
       throw error;

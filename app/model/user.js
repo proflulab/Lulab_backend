@@ -1,15 +1,15 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-02-25 08:44:20
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\5d69da8\Lulab_backend\app\model\user.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-27 15:22:13
+ * @FilePath: /Lulab_backend/app/model/user.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 
-module.exports = app => {
+module.exports = (app) => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
@@ -17,9 +17,9 @@ module.exports = app => {
   const UserSchema = new Schema(
     {
       // Username 用户名
-      name: { type: String, unique: true },
+      name: { type: String },
       // Nickname 昵称
-      nickname: { type: String, unique: true },
+      nickname: { type: String },
       // Real Name 真实姓名
       real_name: { type: String },
       // Password 密码
