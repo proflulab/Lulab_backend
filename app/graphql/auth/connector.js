@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-24 12:49:08
+ * @LastEditTime: 2024-02-27 15:22:34
  * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
@@ -95,7 +95,12 @@ class LaunchConnector {
           ]);
           const password = this.helper.encrypt(randPwd);
 
-          const userinfo = { ctry_code, mobile, password, avatar };
+          const userinfo = {
+            ctry_code,
+            mobile,
+            password,
+            avatar,
+          };
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat._id
@@ -206,6 +211,34 @@ class LaunchConnector {
     } catch (error) {
       console.error("Failed to change password:", error);
       throw new Error("Failed to change password:");
+    }
+  }
+
+  /**
+   * @description: user Login by password
+   * @param {String} ctry_code - Country code.
+   * @param {String} mobile - Mobile number.
+   * @param {String} password - user account password
+   * @return {Object} - Object containing the generated token, refresh token, and user object.
+   */
+  async passwordLogin(ctry_code, mobile, password) {
+    // Find user by mobile number
+    const user = await this.service.user.findUserByMobile(ctry_code, mobile);
+    console.log(user);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    try {
+      if (this.helper.compare(password, user.password)) {
+        const { token, refresh_token } = await this.jwt.generateToken(user._id);
+
+        await this.redis.set(user._id, token, 7200);
+        return { token, refresh_token, user };
+      }
+      throw new Error("Password is incorrect. Failed to login.");
+    } catch (error) {
+      this.logger.error("Error during password verification login:", error);
+      throw error;
     }
   }
 }

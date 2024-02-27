@@ -18,4 +18,11 @@ type Mutation {
     code: String!
     password: String!
   ): Res!
+
+  #密码登入
+  passwordLogin(
+    ctry_code: String!
+    mobile: String!
+    password: String!
+  ): LoginInfo!
 }
