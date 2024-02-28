@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-27 15:22:34
- * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-02-27 20:17:07
+ * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\d6d5a01\Lulab_backend\app\graphql\auth\connector.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -179,7 +179,7 @@ class LaunchConnector {
    * @param {String} password - New password
    * @return {Object} - Object indicating password change status
    */
-  async resetPassword(ctry_code, mobile, code, password) {
+  async mobileChangePassword(ctry_code, mobile, code, password) {
     // Verify code
     const isValidCode = await this.service.sms.verifyCheck(
       ctry_code + mobile,
@@ -206,7 +206,11 @@ class LaunchConnector {
 
     try {
       // Update user password
-      await this.service.user.updateUserByPassword(ctry_code, mobile, password);
+      await this.service.user.mobileupdateUserByPassword(
+        ctry_code,
+        mobile,
+        password
+      );
       return { status: "100", msg: "Password reset complete" };
     } catch (error) {
       console.error("Failed to change password:", error);
@@ -215,7 +219,49 @@ class LaunchConnector {
   }
 
   /**
-   * @description: user Login by password
+   * @description Change user password
+   * @param {String} email - user email address
+   * @param {String} code - Verify code
+   * @param {String} password - The new password
+   * @return {Object} - Object indicating password change status
+   */
+  async emailChangePassword(email, code, password) {
+    // Verify code
+    const isValidCode = await this.service.sms.verifyCheck(
+      email,
+      code,
+      "email"
+    );
+    if (!isValidCode) {
+      throw new Error("Invalid verification code");
+    }
+
+    // Find user by mobile number
+    const user = await this.service.user.findUserByEmail(email);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Compare new password with old password
+    const isSamePassword = this.helper.compare(password, user.password);
+    if (isSamePassword) {
+      throw new Error(
+        "The new password cannot be the same as the old password"
+      );
+    }
+
+    try {
+      // Update user password
+      await this.service.user.emailupdateUserByPassword(email, password);
+      return { status: "100", msg: "Password reset complete" };
+    } catch (error) {
+      console.error("Failed to change password:", error);
+      throw new Error("Failed to change password:");
+    }
+  }
+
+  /**
+   * @description user Login by password
    * @param {String} ctry_code - Country code.
    * @param {String} mobile - Mobile number.
    * @param {String} password - user account password
