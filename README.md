@@ -1,9 +1,9 @@
 <!--
  * @Author: caohanzhong 342292451@qq.com
  * @Date: 2024-02-20 10:12:46
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-02-21 21:45:10
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_feature_Login\repull\Lulab_backend\README.md
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-26 14:46:23
+ * @FilePath: /Lulab_backend/README.md
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -18,7 +18,13 @@
 see [egg docs][egg] for more detail.
 
 运行前请在根目录创建.env 文件，并配置相关环境变量信息
-具体内容参考文件.env_example 的内容
+
+| Parameter          | Description | Example Value | Notes |
+| :----------------- | :---------- | :------------ | :---- |
+| TWILIO_ACCOUNT_SID | ...         | ...           | ...   |
+| ...                | ...         | ...           | ...   |
+
+参考文件.env_example 的内容
 
 ### Development
 
@@ -35,15 +41,23 @@ npm start
 npm stop
 ```
 
+### install in docker
+
+```bash
+git clone -b develop https://github.com/proflulab/Lulab_backend.git
+cd Lulab_backend
+docker-compose up -d
+```
+
 ### npm scripts
 
 - Use `npm run lint` to check code style.
 - Use `npm test` to run unit test.
-
-[egg]: https://eggjs.org
 
 ### 相关插件
 
 koroFileHeader 注释辅助插件
 
 代码格式化标准插件 Prettier - Code formatter
+
+[egg]: https://eggjs.org
