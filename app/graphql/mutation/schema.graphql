@@ -11,13 +11,16 @@ type Mutation {
   # Email verification code login
   emailCodeLogin(email: String!, code: String!): LoginInfo!
 
-  # 修改密码
-  resetPassword(
+  # 修改密码(mobile)
+  mobileChangePassword(
     ctry_code: String!
     mobile: String!
     code: String!
     password: String!
   ): Res!
+
+  # 修改密码(email)
+  emailChangePassword(email: String!, code: String!, password: String!): Res!
 
   #密码登入
   passwordLogin(
