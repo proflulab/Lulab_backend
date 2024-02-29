@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-25 22:43:57
+ * @LastEditTime: 2024-02-29 04:28:45
  * @FilePath: /Lulab_backend/config/config.default.js
  * @Description:
  *
@@ -52,7 +52,7 @@ module.exports = (appInfo) => {
   config.keys = appInfo.name + "_1707728659079_3630";
 
   // add your middleware config here
-  config.middleware = ["graphql"];
+  config.middleware = ["authenticate", "graphql"];
 
   config.graphql = {
     router: "/graphql",

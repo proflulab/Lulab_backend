@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-27 15:22:34
+ * @LastEditTime: 2024-02-29 06:10:27
  * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
@@ -83,6 +83,7 @@ class LaunchConnector {
           ctry_code,
           mobile
         );
+        // todo: 等待修改为正常的默认头像
         const avatar =
           "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
@@ -103,13 +104,13 @@ class LaunchConnector {
           };
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
-            user_creat._id
+            user_creat
           );
           await this.redis.set(user_creat._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
 
-        const { token, refresh_token } = await this.jwt.generateToken(user._id);
+        const { token, refresh_token } = await this.jwt.generateToken(user);
         await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
@@ -150,14 +151,14 @@ class LaunchConnector {
           const userinfo = { email, password, avatar };
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
-            user_creat._id
+            user_creat
           );
           console.log(user_creat);
           await this.redis.set(user_creat._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
 
-        const { token, refresh_token } = await this.jwt.generateToken(user._id);
+        const { token, refresh_token } = await this.jwt.generateToken(user);
         await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
@@ -224,13 +225,12 @@ class LaunchConnector {
   async passwordLogin(ctry_code, mobile, password) {
     // Find user by mobile number
     const user = await this.service.user.findUserByMobile(ctry_code, mobile);
-    console.log(user);
     if (!user) {
       throw new Error("User not found");
     }
     try {
       if (this.helper.compare(password, user.password)) {
-        const { token, refresh_token } = await this.jwt.generateToken(user._id);
+        const { token, refresh_token } = await this.jwt.generateToken(user);
 
         await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };

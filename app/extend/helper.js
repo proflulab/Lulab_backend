@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
- * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-20 03:58:09
- * @FilePath: \Lulab_backend-1\app\extend\helper.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-29 04:56:09
+ * @FilePath: /Lulab_backend/app/extend/helper.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -25,7 +25,6 @@ module.exports = {
     }
     return Num;
   },
-
 
   /**
    * @description Generates a random code with custom composition.
@@ -57,19 +56,17 @@ module.exports = {
     return code;
   },
 
-
   /**
-  * Validate the format of the provided email address.
-  * @param {String} email - The email address to be validated.
-  * @returns {Boolean} - True if the email format is valid, false otherwise.
-  */
+   * Validate the format of the provided email address.
+   * @param {String} email - The email address to be validated.
+   * @returns {Boolean} - True if the email format is valid, false otherwise.
+   */
   validateEmailFormat(email) {
     // Regular expression for validating email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     return emailRegex.test(email);
   },
-
 
   /**
    * Encrypt a password using bcrypt.

@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-02-25 09:17:14
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\5d69da8\Lulab_backend\app\graphql\auth\resolver.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-02-29 06:19:28
+ * @FilePath: /Lulab_backend/app/graphql/auth/resolver.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -30,14 +30,23 @@ module.exports = {
       return ctx.connector.auth.emailCodeLogin(email, code);
     },
 
-    resetPassword(root, { ctry_code, mobile, code, password }, ctx) {
-      return ctx.connector.auth.resetPassword(
-        ctry_code,
-        mobile,
-        code,
-        password
-      );
+    async resetPassword(root, { ctry_code, mobile, code, password }, ctx) {
+      // 首先运行认证中间件
+      await ctx.app.middleware.graphqlAuth()(ctx, async () => {
+        // if (ctx.state.user.role.includes("resetPassword")) {
+        //   throw new Error("You do not have permission to reset password");
+        // }
+
+        // 中间件验证通过后，调用connector的resetPassword方法
+        return ctx.connector.auth.resetPassword(
+          ctry_code,
+          mobile,
+          code,
+          password
+        );
+      });
     },
+
     passwordLogin(root, { ctry_code, mobile, password }, ctx) {
       return ctx.connector.auth.passwordLogin(ctry_code, mobile, password);
     },

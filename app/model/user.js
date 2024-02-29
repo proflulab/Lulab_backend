@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-27 15:22:13
+ * @LastEditTime: 2024-02-29 04:09:31
  * @FilePath: /Lulab_backend/app/model/user.js
  * @Description:
  *
@@ -36,6 +36,8 @@ module.exports = (app) => {
       avatar: { type: String, required: true, default: "" },
       // Whether the user is blocked 是否被封锁
       blocked: { type: Boolean, default: false },
+      // Roles 角色
+      roles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Role" }],
       // Description 描述
       description: { type: String },
       // Last login time 最后登录时间
