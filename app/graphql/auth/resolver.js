@@ -30,7 +30,7 @@ module.exports = {
       return ctx.connector.auth.emailCodeLogin(email, code);
     },
 
-    async resetPassword(root, { ctry_code, mobile, code, password }, ctx) {
+    async mobileChangePassword(root, { ctry_code, mobile, code, password }, ctx) {
       // 首先运行认证中间件
       await ctx.app.middleware.graphqlAuth()(ctx, async () => {
         // if (ctx.state.user.role.includes("resetPassword")) {
@@ -38,7 +38,7 @@ module.exports = {
         // }
 
         // 中间件验证通过后，调用connector的resetPassword方法
-        return ctx.connector.auth.resetPassword(
+        return ctx.connector.auth.mobileChangePassword(
           ctry_code,
           mobile,
           code,
@@ -46,7 +46,9 @@ module.exports = {
         );
       });
     },
-
+    emailChangePassword(root, { email, code, password }, ctx) {
+      return ctx.connector.auth.emailChangePassword(email, code, password);
+    },
     passwordLogin(root, { ctry_code, mobile, password }, ctx) {
       return ctx.connector.auth.passwordLogin(ctry_code, mobile, password);
     },

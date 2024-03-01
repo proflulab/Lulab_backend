@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-22 01:54:06
- * @FilePath: /Lulab_backend/app/service/user.js
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-02-27 20:13:06
+ * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\d6d5a01\Lulab_backend\app\service\user.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -103,18 +103,39 @@ class UserService extends Service {
   }
 
   /**
-   * @description - change password
+   * @description change password by mobile
    * @param {String} ctry_code - The ctry_code information.
    * @param {string} mobile - The mobile number.
    * @param {string} password - new password
    * @return {Object||null} - The found user object or null if not found.
    */
-  async updateUserByPassword(ctry_code, mobile, password) {
+  async mobileupdateUserByPassword(ctry_code, mobile, password) {
     const { ctx } = this;
     try {
       const encrypt = ctx.helper.encrypt(password);
       const users = await ctx.model.User.updateOne(
         { ctry_code, mobile },
+        { password: encrypt }
+      );
+      return users;
+    } catch (err) {
+      ctx.logger.error(err);
+      throw err;
+    }
+  }
+
+  /**
+   * @description change password by email
+   * @param {String} email - The user email address
+   * @param {String} password - The new password
+   * @return {Object||null} - The found user object or null if not found.
+   */
+  async emailupdateUserByPassword(email, password) {
+    const { ctx } = this;
+    try {
+      const encrypt = ctx.helper.encrypt(password);
+      const users = await ctx.model.User.updateOne(
+        { email },
         { password: encrypt }
       );
       return users;
