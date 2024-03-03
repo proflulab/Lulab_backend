@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-29 06:19:28
+ * @LastEditTime: 2024-03-03 23:58:08
  * @FilePath: /Lulab_backend/app/graphql/auth/resolver.js
  * @Description:
  *
@@ -30,25 +30,34 @@ module.exports = {
       return ctx.connector.auth.emailCodeLogin(email, code);
     },
 
-    async mobileChangePassword(root, { ctry_code, mobile, code, password }, ctx) {
-      // 首先运行认证中间件
-      await ctx.app.middleware.graphqlAuth()(ctx, async () => {
-        // if (ctx.state.user.role.includes("resetPassword")) {
-        //   throw new Error("You do not have permission to reset password");
-        // }
+    async mobileChangePassword(
+      root,
+      { ctry_code, mobile, code, password },
+      ctx
+    ) {
+      return ctx.connector.auth.mobileChangePassword(
+        ctry_code,
+        mobile,
+        code,
+        password
+      );
+    },
 
-        // 中间件验证通过后，调用connector的resetPassword方法
-        return ctx.connector.auth.mobileChangePassword(
-          ctry_code,
-          mobile,
-          code,
-          password
-        );
+    // async emailChangePassword(root, { email, code, password }, ctx) {
+    //   return ctx.connector.auth.emailChangePassword(email, code, password);
+    // },
+
+    // todo: 方法访问控制案例
+    async emailChangePassword(root, { email, code, password }, ctx) {
+      await ctx.app.middleware.graphqlAuth()(ctx, async () => {
+        const act = await ctx.state.user.permissions;
+        if (!act.includes("emailChangePassword")) {
+          throw new Error("You do not have permission to reset password");
+        }
+        return ctx.connector.auth.emailChangePassword(email, code, password);
       });
     },
-    emailChangePassword(root, { email, code, password }, ctx) {
-      return ctx.connector.auth.emailChangePassword(email, code, password);
-    },
+
     passwordLogin(root, { ctry_code, mobile, password }, ctx) {
       return ctx.connector.auth.passwordLogin(ctry_code, mobile, password);
     },

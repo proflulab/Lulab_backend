@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-02 00:52:26
+ * @LastEditTime: 2024-03-03 01:30:14
  * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
@@ -83,24 +83,26 @@ class LaunchConnector {
           ctry_code,
           mobile
         );
-        // todo: 等待修改为正常的默认头像
-        const avatar =
-          "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
         if (!user) {
-          const randPwd = this.helper.genRandCode(12, [
-            "num",
-            "lower",
-            "upper",
-            "special",
-          ]);
-          const password = this.helper.encrypt(randPwd);
+          const avatar = `https://api.multiavatar.com/${ctry_code}${mobile}.svg`;
+          const password = this.helper.genRandCode(12, "all");
+
+          const role = await this.service.role.findRoleByName("student");
+
+          if (!role) {
+            // student角色不存在，需要先创建它或者抛出错误
+            throw new Error("Student role not found");
+          }
+
+          const roles = role._id;
 
           const userinfo = {
             ctry_code,
             mobile,
             password,
             avatar,
+            roles,
           };
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
@@ -137,18 +139,22 @@ class LaunchConnector {
       const result = await this.service.sms.verifyCheck(email, code, "email");
       if (result) {
         const user = await this.service.user.findUserByEmail(email);
-        const avatar =
-          "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
+        const avatar = `https://api.multiavatar.com/${email}.svg`;
 
         if (!user) {
-          const randPwd = this.helper.genRandCode(12, [
-            "num",
-            "lower",
-            "upper",
-            "special",
-          ]);
-          const password = this.helper.encrypt(randPwd);
-          const userinfo = { email, password, avatar };
+          const password = this.helper.genRandCode(12, "all");
+
+          const role = await this.service.role.findRoleByName("student");
+
+          if (!role) {
+            // student角色不存在，需要先创建它或者抛出错误
+            throw new Error("Student role not found");
+          }
+
+          const roles = role._id;
+
+          const userinfo = { email, password, avatar, roles };
+
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat

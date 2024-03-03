@@ -2,12 +2,15 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-29 04:09:31
+ * @LastEditTime: 2024-03-02 22:55:35
  * @FilePath: /Lulab_backend/app/model/user.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
+
+const bcrypt = require("bcrypt");
+const SALT_WORK_FACTOR = 10; // 设置加密强度，通常10-12是比较好的
 
 module.exports = (app) => {
   const mongoose = app.mongoose;
@@ -41,13 +44,34 @@ module.exports = (app) => {
       // Description 描述
       description: { type: String },
       // Last login time 最后登录时间
-      lastLoginAT: { type: Number, default: Date.now, required: true },
+      astLoginAt: { type: Number, default: Date.now, required: true },
     },
     { timestamps: true }
   );
 
-  // 创建复合唯一索引
+  // Create a compound unique index on email
+  UserSchema.index({ email: 1 }, { unique: true });
+  // Create a compound unique index on mobile and country code
   UserSchema.index({ mobile: 1, ctry_code: 1 }, { unique: true });
+
+  // Pre-save hook to encrypt password before saving it
+  UserSchema.pre("save", function (next) {
+    const user = this;
+
+    // Only hash the password if it has been modified (or is new)
+    if (!user.isModified("password")) return next();
+
+    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+      if (err) return next(err);
+
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        if (err) return next(err);
+
+        user.password = hash;
+        next();
+      });
+    });
+  });
 
   return mongoose.model("User", UserSchema, "user");
 };

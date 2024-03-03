@@ -1,8 +1,8 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
- * @Date: 2024-02-29 02:20:51
+ * @Date: 2024-03-02 00:48:36
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-29 06:22:56
+ * @LastEditTime: 2024-03-04 00:28:21
  * @FilePath: /Lulab_backend/app/middleware/graphql_auth.js
  * @Description:
  *
@@ -15,9 +15,7 @@ module.exports = (options) => {
     const authHeader = ctx.request.header.authorization;
 
     if (!authHeader) {
-      // ctx.throw(401, "No token detected");
       throw new Error("No token detected");
-      // throw new AuthException("令牌过期", 10003);
     }
 
     // 使用正则表达式匹配Bearer token并提取其中的token值
@@ -31,9 +29,13 @@ module.exports = (options) => {
         throw new Error("这个用户没有任何角色无法访问");
       }
 
+      const permissions = await ctx.service.role.getUserPermissions(
+        decoded.uid
+      );
+
       // 假设decoded对象中有一个字段叫role
       const user = {
-        role: decoded.roles,
+        permissions,
         ...decoded,
       };
 
@@ -44,7 +46,6 @@ module.exports = (options) => {
       await next();
       return;
     } catch (err) {
-      // ctx.throw(401, "Invalid token");
       throw err;
     }
   };

@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-29 04:03:00
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-29 04:11:58
+ * @LastEditTime: 2024-03-02 21:56:59
  * @FilePath: /Lulab_backend/app/model/role.js
  * @Description:
  *
@@ -17,6 +17,7 @@ module.exports = (app) => {
     {
       name: { type: String, unique: true, required: true },
       gqlpermissions: [{ type: String, required: true }],
+      description: { type: String },
     },
     { timestamps: true }
   );
