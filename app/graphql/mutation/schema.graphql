@@ -1,4 +1,6 @@
 type Mutation {
+  #-----------------------------------------登录注册-----------------------------------------
+
   # 手机验证码登录
   # Mobile verification code login
   mobileCodeLogin(
@@ -28,4 +30,41 @@ type Mutation {
     mobile: String!
     password: String!
   ): LoginInfo!
+
+  #-----------------------------------------用户管理-----------------------------------------
+
+  #-----------------------------------------more-----------------------------------------
+  # todo: 待开发接口
+  # createUser(username: String!, email: String!, password: String!): User
+  # updateUser(id: ID!, username: String, email: String, roles: [String]): User
+  # deleteUser(id: ID!): Boolean
+  # # 锁定用户账号
+  # lockUserAccount(id: ID!): Boolean
+  # # 解锁用户账号
+  # unlockUserAccount(id: ID!): Boolean
+  # # 刷新访问令牌
+  # refreshAccessToken(refreshToken: String!): AuthPayload
+  # # 用户退出登录
+  # logout(userId: ID!): Boolean
+
+  # # 设置用户角色
+  # setUserRoles(id: ID!, roles: [String!]!): User
+
+  # # 添加单个用户角色
+  # addUserRole(id: ID!, role: String!): User
+
+  # # 移除单个用户角色
+  # removeUserRole(id: ID!, role: String!): User
+  # # 用户权限管理
+  # # 授予权限
+  # grantPermission(userId: ID!, permission: String!): User
+
+  # # 撤销权限
+  # revokePermission(userId: ID!, permission: String!): User
+
+  # # 授予多个权限
+  # grantMultiplePermissions(userId: ID!, permissions: [String!]!): User
+
+  # # 撤销多个权限
+  # revokeMultiplePermissions(userId: ID!, permissions: [String!]!): User
 }

@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-03 23:58:08
+ * @LastEditTime: 2024-03-05 21:25:43
  * @FilePath: /Lulab_backend/app/graphql/auth/resolver.js
  * @Description:
  *
@@ -43,20 +43,20 @@ module.exports = {
       );
     },
 
-    // async emailChangePassword(root, { email, code, password }, ctx) {
-    //   return ctx.connector.auth.emailChangePassword(email, code, password);
-    // },
+    async emailChangePassword(root, { email, code, password }, ctx) {
+      return ctx.connector.auth.emailChangePassword(email, code, password);
+    },
 
     // todo: 方法访问控制案例
-    async emailChangePassword(root, { email, code, password }, ctx) {
-      await ctx.app.middleware.graphqlAuth()(ctx, async () => {
-        const act = await ctx.state.user.permissions;
-        if (!act.includes("emailChangePassword")) {
-          throw new Error("You do not have permission to reset password");
-        }
-        return ctx.connector.auth.emailChangePassword(email, code, password);
-      });
-    },
+    // async emailChangePassword(root, { email, code, password }, ctx) {
+    //   await ctx.app.middleware.graphqlAuth()(ctx, async () => {
+    //     const act = await ctx.state.user.permissions;
+    //     if (!act.includes("emailChangePassword")) {
+    //       throw new Error("You do not have permission to reset password");
+    //     }
+    //     return ctx.connector.auth.emailChangePassword(email, code, password);
+    //   });
+    // },
 
     passwordLogin(root, { ctry_code, mobile, password }, ctx) {
       return ctx.connector.auth.passwordLogin(ctry_code, mobile, password);
