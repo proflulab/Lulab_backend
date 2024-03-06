@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-02-27 20:17:07
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\d6d5a01\Lulab_backend\app\graphql\auth\connector.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-03-03 01:30:14
+ * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -83,33 +83,36 @@ class LaunchConnector {
           ctry_code,
           mobile
         );
-        const avatar =
-          "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
 
         if (!user) {
-          const randPwd = this.helper.genRandCode(12, [
-            "num",
-            "lower",
-            "upper",
-            "special",
-          ]);
-          const password = this.helper.encrypt(randPwd);
+          const avatar = `https://api.multiavatar.com/${ctry_code}${mobile}.svg`;
+          const password = this.helper.genRandCode(12, "all");
+
+          const role = await this.service.role.findRoleByName("student");
+
+          if (!role) {
+            // student角色不存在，需要先创建它或者抛出错误
+            throw new Error("Student role not found");
+          }
+
+          const roles = role._id;
 
           const userinfo = {
             ctry_code,
             mobile,
             password,
             avatar,
+            roles,
           };
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
-            user_creat._id
+            user_creat
           );
           await this.redis.set(user_creat._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
 
-        const { token, refresh_token } = await this.jwt.generateToken(user._id);
+        const { token, refresh_token } = await this.jwt.generateToken(user);
         await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
@@ -136,28 +139,32 @@ class LaunchConnector {
       const result = await this.service.sms.verifyCheck(email, code, "email");
       if (result) {
         const user = await this.service.user.findUserByEmail(email);
-        const avatar =
-          "https://thirdwx.qlogo.cn/mmopen/vi_32/fQUKriaznXjSickA5AchQll4Adj5v4SqZ5IaCbRXSpqOXZClyUrcp66wJANy6ygtvDLhJqfWgPfA0BWNQUAFAKzA/132";
+        const avatar = `https://api.multiavatar.com/${email}.svg`;
 
         if (!user) {
-          const randPwd = this.helper.genRandCode(12, [
-            "num",
-            "lower",
-            "upper",
-            "special",
-          ]);
-          const password = this.helper.encrypt(randPwd);
-          const userinfo = { email, password, avatar };
+          const password = this.helper.genRandCode(12, "all");
+
+          const role = await this.service.role.findRoleByName("student");
+
+          if (!role) {
+            // student角色不存在，需要先创建它或者抛出错误
+            throw new Error("Student role not found");
+          }
+
+          const roles = role._id;
+
+          const userinfo = { email, password, avatar, roles };
+
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
-            user_creat._id
+            user_creat
           );
           console.log(user_creat);
           await this.redis.set(user_creat._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
 
-        const { token, refresh_token } = await this.jwt.generateToken(user._id);
+        const { token, refresh_token } = await this.jwt.generateToken(user);
         await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
@@ -270,13 +277,12 @@ class LaunchConnector {
   async passwordLogin(ctry_code, mobile, password) {
     // Find user by mobile number
     const user = await this.service.user.findUserByMobile(ctry_code, mobile);
-    console.log(user);
     if (!user) {
       throw new Error("User not found");
     }
     try {
       if (this.helper.compare(password, user.password)) {
-        const { token, refresh_token } = await this.jwt.generateToken(user._id);
+        const { token, refresh_token } = await this.jwt.generateToken(user);
 
         await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };

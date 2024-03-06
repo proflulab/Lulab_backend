@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
- * @LastEditors: 杨仕明 63637615+shimingy-zx@users.noreply.github.com
- * @LastEditTime: 2024-02-20 03:58:09
- * @FilePath: \Lulab_backend-1\app\extend\helper.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-03-02 21:47:18
+ * @FilePath: /Lulab_backend/app/extend/helper.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -26,50 +26,58 @@ module.exports = {
     return Num;
   },
 
-
   /**
    * @description Generates a random code with custom composition.
    * @param {number} len - Length of the random code.
-   * @param {string[]} opts - Options specifying character parts to include, can be any combination of "num", "lower", "upper", "special".
+   * @param {string} opts - A string containing characters that specify parts to include:
+   * 'n' for numbers, 'l' for lowercase, 'u' for uppercase, 's' for special characters,
+   * 'all' to include all available characters.
    * @return {string} - Generated random code.
    */
   genRandCode(len, opts) {
     const charset = {
-      num: "0123456789",
-      lower: "abcdefghijklmnopqrstuvwxyz",
-      upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      special: "!@#$%^&*()_+",
+      n: "0123456789",
+      l: "abcdefghijklmnopqrstuvwxyz",
+      u: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      s: "!@#$%^&*()_+",
     };
 
+    if (!opts || len <= 0) {
+      throw new Error("Invalid options or length for random code generation");
+    }
+
     let allowedChars = "";
-    for (const opt of opts) {
-      if (charset.hasOwnProperty(opt)) {
-        allowedChars += charset[opt];
+    if (opts === "all") {
+      allowedChars = Object.values(charset).join("");
+    } else {
+      for (const opt of opts) {
+        allowedChars += charset[opt] || "";
       }
     }
 
-    let code = "";
-    for (let i = 0; i < len; i++) {
-      const randomIndex = Math.floor(Math.random() * allowedChars.length);
-      code += allowedChars[randomIndex];
+    if (!allowedChars) {
+      throw new Error("Invalid character set options provided");
     }
 
-    return code;
+    const randomChars = Array.from(
+      { length: len },
+      () => allowedChars[Math.floor(Math.random() * allowedChars.length)]
+    );
+
+    return randomChars.join("");
   },
 
-
   /**
-  * Validate the format of the provided email address.
-  * @param {String} email - The email address to be validated.
-  * @returns {Boolean} - True if the email format is valid, false otherwise.
-  */
+   * Validate the format of the provided email address.
+   * @param {String} email - The email address to be validated.
+   * @return {Boolean} - True if the email format is valid, false otherwise.
+   */
   validateEmailFormat(email) {
     // Regular expression for validating email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     return emailRegex.test(email);
   },
-
 
   /**
    * Encrypt a password using bcrypt.
