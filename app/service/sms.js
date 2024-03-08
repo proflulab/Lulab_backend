@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:44:06
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-24 12:32:22
- * @FilePath: /Lulab_backend/app/service/sms.js
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-03-06 18:48:35
+ * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\service\sms.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -173,7 +173,7 @@ class smsService extends Service {
     try {
       // Get code from cache
       const cachedCode = await redis.get(cacheKey);
-
+      console.log(cachedCode);
       // Compare codes
       if (cachedCode === code) {
         await redis.del(cacheKey);

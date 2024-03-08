@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-29 06:08:47
- * @FilePath: /Lulab_backend/app/service/jwt.js
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-03-06 17:26:53
+ * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\service\jwt.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -66,7 +66,6 @@ class JwtService extends Service {
 
   // 验证 Token
   async verifyToken(token, isRefresh = false) {
-    const { ctx } = this.ctx;
     const { refresh_secret, secret } = this.app.config.jwt;
 
     if (!token) {
@@ -79,13 +78,13 @@ class JwtService extends Service {
       return user;
     } catch (e) {
       if (e.message === "jwt expired" && !isRefresh) {
-        ctx.response.body = {
+        this.ctx.response.body = {
           error: "Fail to auth request due to exception: " + e,
           code: 100,
         };
         // throw new AuthException('令牌过期', 10003);
       }
-      ctx.response.body = {
+      this.ctx.response.body = {
         error: "Fail to auth request due to exception: " + e,
         code: 100,
       };

@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-03 01:30:14
- * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-03-08 11:53:56
+ * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\graphql\auth\connector.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -108,12 +108,18 @@ class LaunchConnector {
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat
           );
-          await this.redis.set(user_creat._id, token, 7200);
+          await this.redis.set(user_creat._id, JSON.stringify(token), 7200);
+          await this.redis.set(
+            user_creat._id,
+            JSON.stringify(refresh_token),
+            15000
+          );
           return { token, refresh_token, user: user_creat };
         }
 
         const { token, refresh_token } = await this.jwt.generateToken(user);
-        await this.redis.set(user._id, token, 7200);
+        await this.redis.set(user._id, JSON.stringify(token), 7200);
+        await this.redis.set(user._id, JSON.stringify(refresh_token), 15000);
         return { token, refresh_token, user };
       }
     } catch (error) {
@@ -160,12 +166,18 @@ class LaunchConnector {
             user_creat
           );
           console.log(user_creat);
-          await this.redis.set(user_creat._id, token, 7200);
+          await this.redis.set(user_creat._id, JSON.stringify(token), 7200);
+          await this.redis.set(
+            user_creat._id,
+            JSON.stringify(refresh_token),
+            15000
+          );
           return { token, refresh_token, user: user_creat };
         }
 
         const { token, refresh_token } = await this.jwt.generateToken(user);
-        await this.redis.set(user._id, token, 7200);
+        await this.redis.set(user._id, JSON.stringify(token), 7200);
+        await this.redis.set(user._id, JSON.stringify(refresh_token), 15000);
         return { token, refresh_token, user };
       }
       throw new Error("Invalid verification code.");
@@ -291,6 +303,44 @@ class LaunchConnector {
     } catch (error) {
       this.logger.error("Error during password verification login:", error);
       throw error;
+    }
+  }
+
+  /**
+   * @description logout by refresh_token
+   * @param {String} refresh_token - Refresh user token of access token
+   * @return {Object} Object indicating lohOut status
+   */
+  async logOut(refresh_token) {
+    const authHeader = this.ctx.request.header.authorization;
+    // Verify head token
+    const token = authHeader.replace(/^Bearer\s/, "");
+    const refresh = refresh_token;
+    if (!token || !refresh) {
+      throw new Error("token error");
+    }
+    // find user id
+    const res = await this.jwt.verifyToken(token);
+    const refreshRes = await this.jwt.verifyToken(refresh);
+    if (!res || !refreshRes) {
+      throw new Error("token error or user not find");
+    }
+    try {
+      const cachedCode = await this.redis.get(res.uid);
+      const refreshcachedCode = await this.redis.get(refreshRes.uid);
+
+      if (cachedCode || refreshcachedCode) {
+        await this.redis.del(res.uid);
+        await this.redis.del(refreshRes.uid);
+        return {
+          status: "100",
+          msg: "退出登陆成功",
+        };
+      }
+      throw new Error("Invalid verification uid.");
+    } catch (error) {
+      console.error("Error during logout:", error);
+      throw new Error("Error during logout:", error.message);
     }
   }
 }
