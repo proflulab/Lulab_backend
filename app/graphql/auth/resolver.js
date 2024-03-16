@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-16 09:10:50
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\graphql\auth\resolver.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-03-16 14:04:57
+ * @FilePath: /Lulab_backend/app/graphql/auth/resolver.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -63,14 +63,9 @@ module.exports = {
     },
 
     async logOut(root, { refresh_token }, ctx) {
-      await ctx.app.middleware.graphqlAuth()(ctx, async () => {
-        const token = await ctx.state.user;
-        if (!token) {
-          throw new Error("You do not have permission to logout");
-        }
-        console.log(ctx.connector.auth.logOut(refresh_token, token));
-        return ctx.connector.auth.logOut(refresh_token, token);
-      });
+      await ctx.app.middleware.graphqlAuth()(ctx, async () => {});
+      const token = await ctx.state.token;
+      return ctx.connector.auth.logOut(refresh_token, token);
     },
   },
 };

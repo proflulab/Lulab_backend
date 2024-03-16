@@ -1,15 +1,15 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-03-02 00:48:36
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-12 17:41:06
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\middleware\graphql_auth.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-03-16 14:38:12
+ * @FilePath: /Lulab_backend/app/middleware/graphql_auth.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 
-module.exports = options => {
+module.exports = (options) => {
   return async function graphqlAuth(ctx, next) {
     // 假设你从请求头中获取到了 Authorization header
     const authHeader = ctx.request.header.authorization;
@@ -29,6 +29,14 @@ module.exports = options => {
         throw new Error("User token verification failed");
       }
 
+      const blocktoken = await ctx.service.redis.get(
+        "blocktoken" + decoded.jti
+      );
+      console.log(blocktoken);
+      if (blocktoken) {
+        throw new Error("The token is Block!");
+      }
+
       if (decoded.roles.length === 0) {
         throw new Error("这个用户没有任何角色无法访问");
       }
@@ -45,6 +53,7 @@ module.exports = options => {
 
       // 将用户信息存储在ctx.state.user中
       ctx.state.user = user;
+      ctx.state.token = token;
 
       // 继续执行后续中间件
       await next();

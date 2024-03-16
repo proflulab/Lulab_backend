@@ -1,14 +1,16 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-16 09:02:00
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\graphql\auth\connector.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-03-16 14:26:16
+ * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 "use strict";
+
+const dayjs = require("dayjs");
 
 class LaunchConnector {
   constructor(ctx) {
@@ -315,18 +317,26 @@ class LaunchConnector {
    * @return {Object} Object indicating lohOut status
    */
   async logOut(refresh_token, token) {
-    try {
-      const cachedCode = await this.redis.get(token.uid);
-      if (!cachedCode) {
-        await this.jwt.delrefreshToken(refresh_token);
-        await this.redis.set(token.uid, JSON.stringify(token), 7200);
-        return { status: "100", msg: "Logout successfully" };
-      }
-      return { status: "200", msg: "the user is logged out" };
-    } catch (error) {
-      console.error("Error during logout:", error);
-      throw new Error("Error during logout:", error.message);
+    if (!refresh_token) {
+      throw new Error("Error during logout: refresh_token is null");
     }
+
+    const { exp, jti } = await this.jwt.verifyToken(token);
+    const decode = await this.jwt.verifyToken(refresh_token, true);
+
+    const now = dayjs().unix();
+    const timeout = exp - now;
+    const retimeout = decode.exp - now;
+
+    await this.redis.set("blocktoken" + jti, JSON.stringify(jti), timeout);
+
+    await this.redis.set(
+      "blockretoken" + decode.jti,
+      JSON.stringify(decode.jti),
+      retimeout
+    );
+
+    return { status: "200", msg: "the user is logged out" };
   }
 }
 
