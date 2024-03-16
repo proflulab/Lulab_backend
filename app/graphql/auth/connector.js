@@ -2,13 +2,15 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-03 01:30:14
+ * @LastEditTime: 2024-03-16 16:24:57
  * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 "use strict";
+
+const dayjs = require("dayjs");
 
 class LaunchConnector {
   constructor(ctx) {
@@ -108,12 +110,10 @@ class LaunchConnector {
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat
           );
-          await this.redis.set(user_creat._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
 
         const { token, refresh_token } = await this.jwt.generateToken(user);
-        await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
     } catch (error) {
@@ -153,19 +153,21 @@ class LaunchConnector {
 
           const roles = role._id;
 
-          const userinfo = { email, password, avatar, roles };
+          const userinfo = {
+            email,
+            password,
+            avatar,
+            roles,
+          };
 
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat
           );
-          console.log(user_creat);
-          await this.redis.set(user_creat._id, token, 7200);
           return { token, refresh_token, user: user_creat };
         }
 
         const { token, refresh_token } = await this.jwt.generateToken(user);
-        await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
       throw new Error("Invalid verification code.");
@@ -284,7 +286,7 @@ class LaunchConnector {
       if (this.helper.compare(password, user.password)) {
         const { token, refresh_token } = await this.jwt.generateToken(user);
 
-        await this.redis.set(user._id, token, 7200);
+        // await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
       throw new Error("Password is incorrect. Failed to login.");
@@ -292,6 +294,35 @@ class LaunchConnector {
       this.logger.error("Error during password verification login:", error);
       throw error;
     }
+  }
+
+  /**
+   * @description logout by refresh_token
+   * @param {String} refresh_token - Refresh token for token renewal.
+   * @param {String} token - JWT token for authentication.
+   * @return {Object} Object indicating lohOut status
+   */
+  async logOut(refresh_token, token) {
+    if (!refresh_token) {
+      throw new Error("Error during logout: refresh_token is null");
+    }
+
+    const { exp, jti } = await this.jwt.verifyToken(token);
+    const decode = await this.jwt.verifyToken(refresh_token, true);
+
+    const now = dayjs().unix();
+    const timeout = exp - now;
+    const retimeout = decode.exp - now;
+
+    await this.redis.set("blocktoken" + jti, JSON.stringify(jti), timeout);
+
+    await this.redis.set(
+      "blockretoken" + decode.jti,
+      JSON.stringify(decode.jti),
+      retimeout
+    );
+
+    return { status: "200", msg: "the user is logged out" };
   }
 }
 

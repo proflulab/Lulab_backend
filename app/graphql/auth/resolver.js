@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-05 21:25:43
+ * @LastEditTime: 2024-03-16 14:04:57
  * @FilePath: /Lulab_backend/app/graphql/auth/resolver.js
  * @Description:
  *
@@ -60,6 +60,12 @@ module.exports = {
 
     passwordLogin(root, { ctry_code, mobile, password }, ctx) {
       return ctx.connector.auth.passwordLogin(ctry_code, mobile, password);
+    },
+
+    async logOut(root, { refresh_token }, ctx) {
+      await ctx.app.middleware.graphqlAuth()(ctx, async () => {});
+      const token = await ctx.state.token;
+      return ctx.connector.auth.logOut(refresh_token, token);
     },
   },
 };

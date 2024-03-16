@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-03-02 00:48:36
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-04 00:28:21
+ * @LastEditTime: 2024-03-16 14:38:12
  * @FilePath: /Lulab_backend/app/middleware/graphql_auth.js
  * @Description:
  *
@@ -25,6 +25,18 @@ module.exports = (options) => {
       // 解析并验证token
       const decoded = await ctx.service.jwt.verifyToken(token);
 
+      if (!decoded) {
+        throw new Error("User token verification failed");
+      }
+
+      const blocktoken = await ctx.service.redis.get(
+        "blocktoken" + decoded.jti
+      );
+      console.log(blocktoken);
+      if (blocktoken) {
+        throw new Error("The token is Block!");
+      }
+
       if (decoded.roles.length === 0) {
         throw new Error("这个用户没有任何角色无法访问");
       }
@@ -41,6 +53,7 @@ module.exports = (options) => {
 
       // 将用户信息存储在ctx.state.user中
       ctx.state.user = user;
+      ctx.state.token = token;
 
       // 继续执行后续中间件
       await next();

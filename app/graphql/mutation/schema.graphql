@@ -24,12 +24,16 @@ type Mutation {
   # 修改密码(email)
   emailChangePassword(email: String!, code: String!, password: String!): Res!
 
-  #密码登入
+  # 密码登入
   passwordLogin(
     ctry_code: String!
     mobile: String!
     password: String!
   ): LoginInfo!
+
+  # 用户退出登录
+  # logout
+  logOut(refresh_token: String!): Res!
 
   #-----------------------------------------用户管理-----------------------------------------
 

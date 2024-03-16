@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-02 22:55:35
+ * @LastEditTime: 2024-03-16 15:58:59
  * @FilePath: /Lulab_backend/app/model/user.js
  * @Description:
  *
@@ -49,10 +49,8 @@ module.exports = (app) => {
     { timestamps: true }
   );
 
-  // Create a compound unique index on email
-  UserSchema.index({ email: 1 }, { unique: true });
-  // Create a compound unique index on mobile and country code
-  UserSchema.index({ mobile: 1, ctry_code: 1 }, { unique: true });
+  // Create a compound unique index on mobile and country code,email
+  UserSchema.index({ email: 1, mobile: 1, ctry_code: 1 }, { unique: true });
 
   // Pre-save hook to encrypt password before saving it
   UserSchema.pre("save", function (next) {

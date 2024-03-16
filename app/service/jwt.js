@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-29 06:08:47
+ * @LastEditTime: 2024-03-16 14:58:13
  * @FilePath: /Lulab_backend/app/service/jwt.js
  * @Description:
  *
@@ -64,9 +64,17 @@ class JwtService extends Service {
     };
   }
 
-  // 验证 Token
+  /**
+   * @description
+   * Verifies the provided token using JWT (JSON Web Token) strategy.
+   * It checks whether the token is valid and, based on the 'isRefresh' flag,
+   * selects the appropriate secret for verification.
+   * @param {string} token - The token string to verify.
+   * @param {boolean} isRefresh - A flag to determine if the refresh secret should be used for verification (default is false).
+   * @return {Promise<Object>} - Resolves with the decoded token information if verification is successful.
+   * @throws {Error} - Throws an error if the token is missing, or if the verification process fails, including for expired tokens.
+   */
   async verifyToken(token, isRefresh = false) {
-    const { ctx } = this.ctx;
     const { refresh_secret, secret } = this.app.config.jwt;
 
     if (!token) {
@@ -75,17 +83,17 @@ class JwtService extends Service {
 
     try {
       await this.app.jwt.verify(token, isRefresh ? refresh_secret : secret);
-      const user = this.app.jwt.decode(token);
-      return user;
+      const decode = this.app.jwt.decode(token);
+      return decode;
     } catch (e) {
       if (e.message === "jwt expired" && !isRefresh) {
-        ctx.response.body = {
+        this.ctx.response.body = {
           error: "Fail to auth request due to exception: " + e,
           code: 100,
         };
         // throw new AuthException('令牌过期', 10003);
       }
-      ctx.response.body = {
+      this.ctx.response.body = {
         error: "Fail to auth request due to exception: " + e,
         code: 100,
       };
