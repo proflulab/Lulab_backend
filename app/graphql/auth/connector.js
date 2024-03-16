@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-16 14:26:16
+ * @LastEditTime: 2024-03-16 16:24:57
  * @FilePath: /Lulab_backend/app/graphql/auth/connector.js
  * @Description:
  *
@@ -99,13 +99,9 @@ class LaunchConnector {
 
           const roles = role._id;
 
-          // todo：为了避免重复建问题，在给数据库插入新数据时需给有着唯一索引的数据一个唯一标识
-          const email = this.helper.rand(9);
-
           const userinfo = {
             ctry_code,
             mobile,
-            email,
             password,
             avatar,
             roles,
@@ -114,12 +110,10 @@ class LaunchConnector {
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat
           );
-          // await this.redis.set(user_creat._id, JSON.stringify(token), 7200);
           return { token, refresh_token, user: user_creat };
         }
 
         const { token, refresh_token } = await this.jwt.generateToken(user);
-        // await this.redis.set(user._id, JSON.stringify(token), 7200);
         return { token, refresh_token, user };
       }
     } catch (error) {
@@ -159,14 +153,8 @@ class LaunchConnector {
 
           const roles = role._id;
 
-          // todo：为了避免重复建问题，在给数据库插入新数据时需给有着唯一索引的数据一个唯一标识
-          const mobile = this.helper.rand(11);
-          const ctry_code = this.helper.rand(3);
-
           const userinfo = {
             email,
-            mobile,
-            ctry_code,
             password,
             avatar,
             roles,
@@ -176,12 +164,10 @@ class LaunchConnector {
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat
           );
-          // await this.redis.set(user_creat._id, JSON.stringify(token), 7200);
           return { token, refresh_token, user: user_creat };
         }
 
         const { token, refresh_token } = await this.jwt.generateToken(user);
-        // await this.redis.set(user._id, JSON.stringify(token), 7200);
         return { token, refresh_token, user };
       }
       throw new Error("Invalid verification code.");

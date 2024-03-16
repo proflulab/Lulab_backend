@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-15 11:37:08
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\config\config.default.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-03-05 21:28:10
+ * @FilePath: /Lulab_backend/config/config.default.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -15,7 +15,7 @@ require("dotenv").config();
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
-module.exports = appInfo => {
+module.exports = (appInfo) => {
   /**
    * built-in config
    * @type {Egg.EggAppConfig}
@@ -93,7 +93,7 @@ module.exports = appInfo => {
       port: REDIS_PORT, // Redis port
       host: REDIS_HOST, // Redis host
       password: null,
-      db: 1,
+      db: 0,
     },
   };
 

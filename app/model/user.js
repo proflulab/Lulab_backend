@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-13 10:25:47
- * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\model\user.js
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-03-16 15:58:59
+ * @FilePath: /Lulab_backend/app/model/user.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -12,7 +12,7 @@
 const bcrypt = require("bcrypt");
 const SALT_WORK_FACTOR = 10; // 设置加密强度，通常10-12是比较好的
 
-module.exports = app => {
+module.exports = (app) => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
@@ -49,10 +49,8 @@ module.exports = app => {
     { timestamps: true }
   );
 
-  // Create a compound unique index on email
-  UserSchema.index({ email: 1 }, { unique: true });
-  // Create a compound unique index on mobile and country code
-  UserSchema.index({ mobile: 1, ctry_code: 1 }, { unique: true });
+  // Create a compound unique index on mobile and country code,email
+  UserSchema.index({ email: 1, mobile: 1, ctry_code: 1 }, { unique: true });
 
   // Pre-save hook to encrypt password before saving it
   UserSchema.pre("save", function (next) {
