@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-06 17:26:53
+ * @LastEditTime: 2024-03-15 23:34:38
  * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\service\jwt.js
  * @Description:
  *
@@ -90,6 +90,24 @@ class JwtService extends Service {
       };
       // throw new AuthException();
     }
+  }
+
+  async delrefreshToken(refresh_token) {
+    const decode = await this.verifyToken(refresh_token);
+    if (!decode) {
+      throw new Error("User Refresh token verification failed");
+    }
+
+    const getToken = await this.ctx.service.redis.get("del" + decode.jti);
+    if (getToken) {
+      throw new Error("User token is already in the blacklist");
+    }
+    await this.ctx.service.redis.set(
+      "del" + decode.jti,
+      JSON.stringify(decode),
+      259200
+    );
+    return true;
   }
 }
 

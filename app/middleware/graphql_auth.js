@@ -1,15 +1,15 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-03-02 00:48:36
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-04 00:28:21
- * @FilePath: /Lulab_backend/app/middleware/graphql_auth.js
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-03-12 17:41:06
+ * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\middleware\graphql_auth.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 
-module.exports = (options) => {
+module.exports = options => {
   return async function graphqlAuth(ctx, next) {
     // 假设你从请求头中获取到了 Authorization header
     const authHeader = ctx.request.header.authorization;
@@ -24,6 +24,10 @@ module.exports = (options) => {
     try {
       // 解析并验证token
       const decoded = await ctx.service.jwt.verifyToken(token);
+
+      if (!decoded) {
+        throw new Error("User token verification failed");
+      }
 
       if (decoded.roles.length === 0) {
         throw new Error("这个用户没有任何角色无法访问");

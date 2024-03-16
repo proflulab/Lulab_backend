@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-08 11:53:56
+ * @LastEditTime: 2024-03-16 09:02:00
  * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\bcb57a6\Lulab_backend\app\graphql\auth\connector.js
  * @Description:
  *
@@ -97,9 +97,13 @@ class LaunchConnector {
 
           const roles = role._id;
 
+          // todo：为了避免重复建问题，在给数据库插入新数据时需给有着唯一索引的数据一个唯一标识
+          const email = this.helper.rand(9);
+
           const userinfo = {
             ctry_code,
             mobile,
+            email,
             password,
             avatar,
             roles,
@@ -108,18 +112,12 @@ class LaunchConnector {
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat
           );
-          await this.redis.set(user_creat._id, JSON.stringify(token), 7200);
-          await this.redis.set(
-            user_creat._id,
-            JSON.stringify(refresh_token),
-            15000
-          );
+          // await this.redis.set(user_creat._id, JSON.stringify(token), 7200);
           return { token, refresh_token, user: user_creat };
         }
 
         const { token, refresh_token } = await this.jwt.generateToken(user);
-        await this.redis.set(user._id, JSON.stringify(token), 7200);
-        await this.redis.set(user._id, JSON.stringify(refresh_token), 15000);
+        // await this.redis.set(user._id, JSON.stringify(token), 7200);
         return { token, refresh_token, user };
       }
     } catch (error) {
@@ -159,25 +157,29 @@ class LaunchConnector {
 
           const roles = role._id;
 
-          const userinfo = { email, password, avatar, roles };
+          // todo：为了避免重复建问题，在给数据库插入新数据时需给有着唯一索引的数据一个唯一标识
+          const mobile = this.helper.rand(11);
+          const ctry_code = this.helper.rand(3);
+
+          const userinfo = {
+            email,
+            mobile,
+            ctry_code,
+            password,
+            avatar,
+            roles,
+          };
 
           const user_creat = await this.service.user.createUser(userinfo);
           const { token, refresh_token } = await this.jwt.generateToken(
             user_creat
           );
-          console.log(user_creat);
-          await this.redis.set(user_creat._id, JSON.stringify(token), 7200);
-          await this.redis.set(
-            user_creat._id,
-            JSON.stringify(refresh_token),
-            15000
-          );
+          // await this.redis.set(user_creat._id, JSON.stringify(token), 7200);
           return { token, refresh_token, user: user_creat };
         }
 
         const { token, refresh_token } = await this.jwt.generateToken(user);
-        await this.redis.set(user._id, JSON.stringify(token), 7200);
-        await this.redis.set(user._id, JSON.stringify(refresh_token), 15000);
+        // await this.redis.set(user._id, JSON.stringify(token), 7200);
         return { token, refresh_token, user };
       }
       throw new Error("Invalid verification code.");
@@ -296,7 +298,7 @@ class LaunchConnector {
       if (this.helper.compare(password, user.password)) {
         const { token, refresh_token } = await this.jwt.generateToken(user);
 
-        await this.redis.set(user._id, token, 7200);
+        // await this.redis.set(user._id, token, 7200);
         return { token, refresh_token, user };
       }
       throw new Error("Password is incorrect. Failed to login.");
@@ -308,36 +310,19 @@ class LaunchConnector {
 
   /**
    * @description logout by refresh_token
-   * @param {String} refresh_token - Refresh user token of access token
+   * @param {String} refresh_token - Refresh token for token renewal.
+   * @param {String} token - JWT token for authentication.
    * @return {Object} Object indicating lohOut status
    */
-  async logOut(refresh_token) {
-    const authHeader = this.ctx.request.header.authorization;
-    // Verify head token
-    const token = authHeader.replace(/^Bearer\s/, "");
-    const refresh = refresh_token;
-    if (!token || !refresh) {
-      throw new Error("token error");
-    }
-    // find user id
-    const res = await this.jwt.verifyToken(token);
-    const refreshRes = await this.jwt.verifyToken(refresh);
-    if (!res || !refreshRes) {
-      throw new Error("token error or user not find");
-    }
+  async logOut(refresh_token, token) {
     try {
-      const cachedCode = await this.redis.get(res.uid);
-      const refreshcachedCode = await this.redis.get(refreshRes.uid);
-
-      if (cachedCode || refreshcachedCode) {
-        await this.redis.del(res.uid);
-        await this.redis.del(refreshRes.uid);
-        return {
-          status: "100",
-          msg: "退出登陆成功",
-        };
+      const cachedCode = await this.redis.get(token.uid);
+      if (!cachedCode) {
+        await this.jwt.delrefreshToken(refresh_token);
+        await this.redis.set(token.uid, JSON.stringify(token), 7200);
+        return { status: "100", msg: "Logout successfully" };
       }
-      throw new Error("Invalid verification uid.");
+      return { status: "200", msg: "the user is logged out" };
     } catch (error) {
       console.error("Error during logout:", error);
       throw new Error("Error during logout:", error.message);
