@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-05 21:28:10
+ * @LastEditTime: 2024-03-17 22:27:18
  * @FilePath: /Lulab_backend/config/config.default.js
  * @Description:
  *
@@ -38,6 +38,11 @@ module.exports = (appInfo) => {
     EMAIL_PORT,
     EMAIL_USER,
     EMAIL_PASS,
+    XIAOE_APP_ID,
+    XIAOE_CLIENT_ID,
+    XIAOE_SECRET_KEY,
+    STRIPE_API_KEY,
+    STRIPE_ENDPOINT_SECRET,
   } = process.env;
 
   config.cluster = {
@@ -117,6 +122,20 @@ module.exports = (appInfo) => {
         user: EMAIL_USER, // Sender's email address
         pass: EMAIL_PASS, // Sender's email password
       },
+    },
+
+    // 小鹅通相关配置
+    xiaoe: {
+      appId: XIAOE_APP_ID, // 你的小鹅通应用的业务id
+      clientId: XIAOE_CLIENT_ID, // 应用的唯一标识
+      secretKey: XIAOE_SECRET_KEY, // 应用的凭证秘钥
+      grantType: "client_credential", // 固定填写为client_credential
+    },
+
+    // stripe
+    stripe: {
+      key: STRIPE_API_KEY,
+      endpointSecret: STRIPE_ENDPOINT_SECRET,
     },
   };
 

@@ -1,3 +1,13 @@
+/*
+ * @Author: 杨仕明 shiming.y@qq.com
+ * @Date: 2024-03-06 11:21:42
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-03-17 17:33:01
+ * @FilePath: /Lulab_backend/app.js
+ * @Description:
+ *
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
+ */
 class AppBootHook {
   constructor(app) {
     this.app = app;
@@ -85,6 +95,7 @@ class AppBootHook {
   async didReady() {
     // worker 已准备就绪，在这里可以执行一些操作，
     // 这些操作不会阻塞应用启动。
+    await this.app.runSchedule("xiaoe_token"); // 手动启动定时任务
   }
 
   async serverDidReady() {
