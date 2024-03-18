@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-16 14:58:13
- * @FilePath: /Lulab_backend/app/service/jwt.js
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-03-18 10:53:19
+ * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\e368bc8\Lulab_backend\app\service\jwt.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -99,6 +99,16 @@ class JwtService extends Service {
       };
       // throw new AuthException();
     }
+  }
+
+  async refreshAccessToken(user, refreshToken) {
+    const { secret, expire } = this.app.config.jwt;
+    const token = await this.createToken(user, secret, expire);
+
+    return {
+      token,
+      refresh_token: refreshToken,
+    };
   }
 }
 
