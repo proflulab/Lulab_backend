@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-18 10:53:19
+ * @LastEditTime: 2024-03-18 11:43:31
  * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\e368bc8\Lulab_backend\app\service\jwt.js
  * @Description:
  *
@@ -101,10 +101,15 @@ class JwtService extends Service {
     }
   }
 
+  /**
+   * @description Refresh user token
+   * @param {String} user - The unique identifier of the user.
+   * @param {String} refreshToken - Refresh token for token renewal.
+   * @return {Object} Object Refresh the user Access token by refreshing the token
+   */
   async refreshAccessToken(user, refreshToken) {
     const { secret, expire } = this.app.config.jwt;
     const token = await this.createToken(user, secret, expire);
-
     return {
       token,
       refresh_token: refreshToken,
