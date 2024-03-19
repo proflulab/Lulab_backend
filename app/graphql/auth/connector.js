@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-18 11:40:14
+ * @LastEditTime: 2024-03-19 15:05:07
  * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\e368bc8\Lulab_backend\app\graphql\auth\connector.js
  * @Description:
  *
@@ -328,10 +328,11 @@ class LaunchConnector {
   /**
    * @description Refresh user Access token
    * @param {String} refresh_token - Refresh token for token renewal.
-   * @param {String} token - JWT token for authentication.
    * @return {Object} Object Returns the refreshed user token and refresh token
    */
-  async refreshAccessToken(refresh_token, token) {
+  async refreshAccessToken(refresh_token) {
+    const authHeader = this.ctx.request.header.authorization;
+    const token = authHeader.replace(/^Bearer\s+/i, "");
     const exp = await this.jwt.verifyToken(token);
     const res = await this.jwt.verifyToken(refresh_token, true);
     if (exp) {
