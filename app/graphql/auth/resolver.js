@@ -1,9 +1,9 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-16 14:04:57
- * @FilePath: /Lulab_backend/app/graphql/auth/resolver.js
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-03-19 15:02:40
+ * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\e368bc8\Lulab_backend\app\graphql\auth\resolver.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
@@ -66,6 +66,10 @@ module.exports = {
       await ctx.app.middleware.graphqlAuth()(ctx, async () => {});
       const token = await ctx.state.token;
       return ctx.connector.auth.logOut(refresh_token, token);
+    },
+
+    async refreshAccessToken(root, { refresh_token }, ctx) {
+      return ctx.connector.auth.refreshAccessToken(refresh_token);
     },
   },
 };

@@ -35,6 +35,9 @@ type Mutation {
   # logout
   logOut(refresh_token: String!): Res!
 
+  # 刷新访问令牌
+  refreshAccessToken(refresh_token: String!): AuthPayload!
+
   #-----------------------------------------用户管理-----------------------------------------
 
   #-----------------------------------------more-----------------------------------------
@@ -46,8 +49,6 @@ type Mutation {
   # lockUserAccount(id: ID!): Boolean
   # # 解锁用户账号
   # unlockUserAccount(id: ID!): Boolean
-  # # 刷新访问令牌
-  # refreshAccessToken(refreshToken: String!): AuthPayload
   # # 用户退出登录
   # logout(userId: ID!): Boolean
 

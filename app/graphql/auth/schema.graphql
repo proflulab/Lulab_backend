@@ -36,3 +36,9 @@ type Userdata {
   # 描述，Description
   description: String
 }
+
+# 刷新令牌，Refresh
+type AuthPayload {
+  token: String!
+  refresh_token: String!
+}
