@@ -1,0 +1,1813 @@
+﻿{
+    "data": [
+        {
+            "country_cn": "中国",
+            "country_en": "China",
+            "iso": "CN",
+            "continent": "亚洲",
+            "region": "东亚",
+            "domain": ".cn",
+            "tel_code": "+86"
+        },
+        {
+            "country_cn": "中国 香港",
+            "country_en": "Hong Kong",
+            "iso": "HK",
+            "continent": "亚洲",
+            "region": "东亚",
+            "domain": ".hk",
+            "tel_code": "+852"
+        },
+        {
+            "country_cn": "中国 澳门",
+            "country_en": "Macao",
+            "iso": "MO",
+            "continent": "亚洲",
+            "region": "东亚",
+            "domain": ".mo",
+            "tel_code": "+853"
+        },
+        {
+            "country_cn": "中国 台湾省",
+            "country_en": "Taiwan, Province of China",
+            "iso": "TW",
+            "continent": "亚洲",
+            "region": "东亚",
+            "domain": ".tw",
+            "tel_code": "+886"
+        },
+        {
+            "country_cn": "日本",
+            "country_en": "Japan",
+            "iso": "JP",
+            "continent": "亚洲",
+            "region": "东亚",
+            "domain": ".jp",
+            "tel_code": "+81"
+        },
+        {
+            "country_cn": "韩国",
+            "country_en": "Korea (Republic of)",
+            "iso": "KR",
+            "continent": "亚洲",
+            "region": "东亚",
+            "domain": ".kr",
+            "tel_code": "+82"
+        },
+        {
+            "country_cn": "朝鲜",
+            "country_en": "Korea (Democratic People's Republic of)",
+            "iso": "KP",
+            "continent": "亚洲",
+            "region": "东亚",
+            "domain": ".kp",
+            "tel_code": "+850"
+        },
+        {
+            "country_cn": "蒙古",
+            "country_en": "Mongolia",
+            "iso": "MN",
+            "continent": "亚洲",
+            "region": "东亚",
+            "domain": ".mn",
+            "tel_code": "+976"
+        },
+        {
+            "country_cn": "越南",
+            "country_en": "Viet Nam",
+            "iso": "VN",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".vn",
+            "tel_code": "+84"
+        },
+        {
+            "country_cn": "柬埔寨",
+            "country_en": "Cambodia",
+            "iso": "KH",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".kh",
+            "tel_code": "+855"
+        },
+        {
+            "country_cn": "老挝",
+            "country_en": "Lao People's Democratic Republic",
+            "iso": "LA",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".la",
+            "tel_code": "+856"
+        },
+        {
+            "country_cn": "泰国",
+            "country_en": "Thailand",
+            "iso": "TH",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".th",
+            "tel_code": "+66"
+        },
+        {
+            "country_cn": "缅甸",
+            "country_en": "Myanmar",
+            "iso": "MM",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".mm",
+            "tel_code": "+95"
+        },
+        {
+            "country_cn": "菲律宾",
+            "country_en": "Philippines",
+            "iso": "PH",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".ph",
+            "tel_code": "+63"
+        },
+        {
+            "country_cn": "文莱",
+            "country_en": "Brunei Darussalam",
+            "iso": "BN",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".bn",
+            "tel_code": "+673"
+        },
+        {
+            "country_cn": "马来西亚",
+            "country_en": "Malaysia",
+            "iso": "MY",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".my",
+            "tel_code": "+60"
+        },
+        {
+            "country_cn": "新加坡",
+            "country_en": "Singapore",
+            "iso": "SG",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".sg",
+            "tel_code": "+65"
+        },
+        {
+            "country_cn": "印度尼西亚",
+            "country_en": "Indonesia",
+            "iso": "ID",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".id",
+            "tel_code": "+62"
+        },
+        {
+            "country_cn": "东帝汶",
+            "country_en": "Timor-Leste",
+            "iso": "TL",
+            "continent": "亚洲",
+            "region": "东南亚",
+            "domain": ".tl",
+            "tel_code": "+670"
+        },
+        {
+            "country_cn": "尼泊尔",
+            "country_en": "Nepal",
+            "iso": "NP",
+            "continent": "亚洲",
+            "region": "南亚",
+            "domain": ".np",
+            "tel_code": "+977"
+        },
+        {
+            "country_cn": "不丹",
+            "country_en": "Bhutan",
+            "iso": "BT",
+            "continent": "亚洲",
+            "region": "南亚",
+            "domain": ".bt",
+            "tel_code": "+975"
+        },
+        {
+            "country_cn": "巴基斯坦",
+            "country_en": "Pakistan",
+            "iso": "PK",
+            "continent": "亚洲",
+            "region": "南亚",
+            "domain": ".pk",
+            "tel_code": "+92"
+        },
+        {
+            "country_cn": "印度",
+            "country_en": "India",
+            "iso": "IN",
+            "continent": "亚洲",
+            "region": "南亚",
+            "domain": ".in",
+            "tel_code": "+91"
+        },
+        {
+            "country_cn": "孟加拉国",
+            "country_en": "Bangladesh",
+            "iso": "BD",
+            "continent": "亚洲",
+            "region": "南亚",
+            "domain": ".bd",
+            "tel_code": "+880"
+        },
+        {
+            "country_cn": "马尔代夫",
+            "country_en": "Maldives",
+            "iso": "MV",
+            "continent": "亚洲",
+            "region": "南亚",
+            "domain": ".mv",
+            "tel_code": "+960"
+        },
+        {
+            "country_cn": "斯里兰卡",
+            "country_en": "Sri Lanka",
+            "iso": "LK",
+            "continent": "亚洲",
+            "region": "南亚",
+            "domain": ".lk",
+            "tel_code": "+94"
+        },
+        {
+            "country_cn": "哈萨克斯坦",
+            "country_en": "Kazakhstan",
+            "iso": "KZ",
+            "continent": "亚洲",
+            "region": "中亚",
+            "domain": ".kz",
+            "tel_code": "+7"
+        },
+        {
+            "country_cn": "吉尔吉斯斯坦",
+            "country_en": "Kyrgyzstan",
+            "iso": "KG",
+            "continent": "亚洲",
+            "region": "中亚",
+            "domain": ".kg",
+            "tel_code": "+996"
+        },
+        {
+            "country_cn": "塔吉克斯坦",
+            "country_en": "Tajikistan",
+            "iso": "TJ",
+            "continent": "亚洲",
+            "region": "中亚",
+            "domain": ".tj",
+            "tel_code": "+992"
+        },
+        {
+            "country_cn": "乌兹别克斯坦",
+            "country_en": "Uzbekistan",
+            "iso": "UZ",
+            "continent": "亚洲",
+            "region": "中亚",
+            "domain": ".uz",
+            "tel_code": "+998"
+        },
+        {
+            "country_cn": "土库曼斯坦",
+            "country_en": "Turkmenistan",
+            "iso": "TM",
+            "continent": "亚洲",
+            "region": "中亚",
+            "domain": ".tm",
+            "tel_code": "+993"
+        },
+        {
+            "country_cn": "阿富汗",
+            "country_en": "Afghanistan",
+            "iso": "AF",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".af",
+            "tel_code": "+93"
+        },
+        {
+            "country_cn": "伊朗",
+            "country_en": "Iran",
+            "iso": "IR",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".ir",
+            "tel_code": "+98"
+        },
+        {
+            "country_cn": "伊拉克",
+            "country_en": "Iraq",
+            "iso": "IQ",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".iq",
+            "tel_code": "+964"
+        },
+        {
+            "country_cn": "叙利亚",
+            "country_en": "Syrian Arab Republic",
+            "iso": "SY",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".sy",
+            "tel_code": "+963"
+        },
+        {
+            "country_cn": "黎巴嫩",
+            "country_en": "Lebanon",
+            "iso": "LB",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".lb",
+            "tel_code": "+961"
+        },
+        {
+            "country_cn": "以色列",
+            "country_en": "Israel",
+            "iso": "IL",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".il",
+            "tel_code": "+972"
+        },
+        {
+            "country_cn": "巴勒斯坦",
+            "country_en": "Palestine",
+            "iso": "PS",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".ps",
+            "tel_code": "+970"
+        },
+        {
+            "country_cn": "约旦",
+            "country_en": "Jordan",
+            "iso": "JO",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".jo",
+            "tel_code": "+962"
+        },
+        {
+            "country_cn": "沙特阿拉伯",
+            "country_en": "Saudi Arabia",
+            "iso": "SA",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".sa",
+            "tel_code": "+966"
+        },
+        {
+            "country_cn": "巴林",
+            "country_en": "Bahrain",
+            "iso": "BH",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".bh",
+            "tel_code": "+973"
+        },
+        {
+            "country_cn": "卡塔尔",
+            "country_en": "Qatar",
+            "iso": "QA",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".qa",
+            "tel_code": "+974"
+        },
+        {
+            "country_cn": "科威特",
+            "country_en": "Kuwait",
+            "iso": "KW",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".kw",
+            "tel_code": "+965"
+        },
+        {
+            "country_cn": "阿拉伯联合酋长国/阿联酋",
+            "country_en": "United Arab Emirates",
+            "iso": "AE",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".ae",
+            "tel_code": "+971"
+        },
+        {
+            "country_cn": "阿曼",
+            "country_en": "Oman",
+            "iso": "OM",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".om",
+            "tel_code": "+968"
+        },
+        {
+            "country_cn": "也门",
+            "country_en": "Yemen",
+            "iso": "YE",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".ye",
+            "tel_code": "+967"
+        },
+        {
+            "country_cn": "格鲁吉亚",
+            "country_en": "Georgia",
+            "iso": "GE",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".ge",
+            "tel_code": "+995"
+        },
+        {
+            "country_cn": "亚美尼亚",
+            "country_en": "Armenia",
+            "iso": "AM",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".am",
+            "tel_code": "+374"
+        },
+        {
+            "country_cn": "阿塞拜疆",
+            "country_en": "Azerbaijan",
+            "iso": "AZ",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".az",
+            "tel_code": "+994"
+        },
+        {
+            "country_cn": "土耳其",
+            "country_en": "Turkey",
+            "iso": "TR",
+            "continent": "亚洲",
+            "region": "西亚",
+            "domain": ".tr",
+            "tel_code": "+90"
+        },
+        {
+            "country_cn": "冰岛",
+            "country_en": "Iceland",
+            "iso": "IS",
+            "continent": "欧洲",
+            "region": "北欧",
+            "domain": ".is",
+            "tel_code": "+354"
+        },
+        {
+            "country_cn": "丹麦",
+            "country_en": "Denmark",
+            "iso": "DK",
+            "continent": "欧洲",
+            "region": "北欧",
+            "domain": ".dk",
+            "tel_code": "+45"
+        },
+        {
+            "country_cn": "挪威",
+            "country_en": "Norway",
+            "iso": "NO",
+            "continent": "欧洲",
+            "region": "北欧",
+            "domain": ".no",
+            "tel_code": "+47"
+        },
+        {
+            "country_cn": "瑞典",
+            "country_en": "Sweden",
+            "iso": "SE",
+            "continent": "欧洲",
+            "region": "北欧",
+            "domain": ".se",
+            "tel_code": "+46"
+        },
+        {
+            "country_cn": "芬兰",
+            "country_en": "Finland",
+            "iso": "FI",
+            "continent": "欧洲",
+            "region": "北欧",
+            "domain": ".fi",
+            "tel_code": "+358"
+        },
+        {
+            "country_cn": "英国",
+            "country_en": "United Kingdom of Great Britain and Northern Ireland",
+            "iso": "GB",
+            "continent": "欧洲",
+            "region": "西欧",
+            "domain": ".gb/.uk",
+            "tel_code": "+44"
+        },
+        {
+            "country_cn": "爱尔兰",
+            "country_en": "Ireland",
+            "iso": "IE",
+            "continent": "欧洲",
+            "region": "西欧",
+            "domain": ".ie",
+            "tel_code": "+353"
+        },
+        {
+            "country_cn": "法国",
+            "country_en": "France",
+            "iso": "FR",
+            "continent": "欧洲",
+            "region": "西欧",
+            "domain": ".fr",
+            "tel_code": "+33"
+        },
+        {
+            "country_cn": "摩纳哥",
+            "country_en": "Monaco",
+            "iso": "MC",
+            "continent": "欧洲",
+            "region": "西欧",
+            "domain": ".mc",
+            "tel_code": "+377"
+        },
+        {
+            "country_cn": "荷兰",
+            "country_en": "Netherlands",
+            "iso": "NL",
+            "continent": "欧洲",
+            "region": "西欧",
+            "domain": ".nl",
+            "tel_code": "+31"
+        },
+        {
+            "country_cn": "比利时",
+            "country_en": "Belgium",
+            "iso": "BE",
+            "continent": "欧洲",
+            "region": "西欧",
+            "domain": ".be",
+            "tel_code": "+32"
+        },
+        {
+            "country_cn": "卢森堡",
+            "country_en": "Luxembourg",
+            "iso": "LU",
+            "continent": "欧洲",
+            "region": "西欧",
+            "domain": ".lu",
+            "tel_code": "+352"
+        },
+        {
+            "country_cn": "德国",
+            "country_en": "Germany",
+            "iso": "DE",
+            "continent": "欧洲",
+            "region": "中欧",
+            "domain": ".de",
+            "tel_code": "+49"
+        },
+        {
+            "country_cn": "瑞士",
+            "country_en": "Switzerland",
+            "iso": "CH",
+            "continent": "欧洲",
+            "region": "中欧",
+            "domain": ".ch",
+            "tel_code": "+41"
+        },
+        {
+            "country_cn": "列支敦士登",
+            "country_en": "Liechtenstein",
+            "iso": "LI",
+            "continent": "欧洲",
+            "region": "中欧",
+            "domain": ".li",
+            "tel_code": "+423"
+        },
+        {
+            "country_cn": "波兰",
+            "country_en": "Poland",
+            "iso": "PL",
+            "continent": "欧洲",
+            "region": "中欧",
+            "domain": ".pl",
+            "tel_code": "+48"
+        },
+        {
+            "country_cn": "捷克",
+            "country_en": "Czechia",
+            "iso": "CZ",
+            "continent": "欧洲",
+            "region": "中欧",
+            "domain": ".cz",
+            "tel_code": "+420"
+        },
+        {
+            "country_cn": "斯洛伐克",
+            "country_en": "Slovakia",
+            "iso": "SK",
+            "continent": "欧洲",
+            "region": "中欧",
+            "domain": ".sk",
+            "tel_code": "+421"
+        },
+        {
+            "country_cn": "奥地利",
+            "country_en": "Austria",
+            "iso": "AT",
+            "continent": "欧洲",
+            "region": "中欧",
+            "domain": ".at",
+            "tel_code": "+43"
+        },
+        {
+            "country_cn": "匈牙利",
+            "country_en": "Hungary",
+            "iso": "HU",
+            "continent": "欧洲",
+            "region": "中欧",
+            "domain": ".hu",
+            "tel_code": "+36"
+        },
+        {
+            "country_cn": "爱沙尼亚",
+            "country_en": "Estonia",
+            "iso": "EE",
+            "continent": "欧洲",
+            "region": "东欧",
+            "domain": ".ee",
+            "tel_code": "+372"
+        },
+        {
+            "country_cn": "拉脱维亚",
+            "country_en": "Latvia",
+            "iso": "LV",
+            "continent": "欧洲",
+            "region": "东欧",
+            "domain": ".lv",
+            "tel_code": "+371"
+        },
+        {
+            "country_cn": "立陶宛",
+            "country_en": "Lithuania",
+            "iso": "LT",
+            "continent": "欧洲",
+            "region": "东欧",
+            "domain": ".lt",
+            "tel_code": "+370"
+        },
+        {
+            "country_cn": "白俄罗斯",
+            "country_en": "Belarus",
+            "iso": "BY",
+            "continent": "欧洲",
+            "region": "东欧",
+            "domain": ".by",
+            "tel_code": "+375"
+        },
+        {
+            "country_cn": "乌克兰",
+            "country_en": "Ukraine",
+            "iso": "UA",
+            "continent": "欧洲",
+            "region": "东欧",
+            "domain": ".ua",
+            "tel_code": "+380"
+        },
+        {
+            "country_cn": "摩尔多瓦",
+            "country_en": "Moldova",
+            "iso": "MD",
+            "continent": "欧洲",
+            "region": "东欧",
+            "domain": ".md",
+            "tel_code": "+373"
+        },
+        {
+            "country_cn": "俄罗斯",
+            "country_en": "Russian Federation",
+            "iso": "RU",
+            "continent": "欧洲",
+            "region": "东欧",
+            "domain": ".ru",
+            "tel_code": "+7"
+        },
+        {
+            "country_cn": "葡萄牙",
+            "country_en": "Portugal",
+            "iso": "PT",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".pt",
+            "tel_code": "+351"
+        },
+        {
+            "country_cn": "西班牙",
+            "country_en": "Spain",
+            "iso": "ES",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".es",
+            "tel_code": "+34"
+        },
+        {
+            "country_cn": "安道尔",
+            "country_en": "Andorra",
+            "iso": "AD",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".ad",
+            "tel_code": "+376"
+        },
+        {
+            "country_cn": "意大利",
+            "country_en": "Italy",
+            "iso": "IT",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".it",
+            "tel_code": "+39"
+        },
+        {
+            "country_cn": "圣马力诺",
+            "country_en": "San Marino",
+            "iso": "SM",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".sm",
+            "tel_code": "+378"
+        },
+        {
+            "country_cn": "梵蒂冈",
+            "country_en": "Holy See",
+            "iso": "VA",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".va",
+            "tel_code": "+379"
+        },
+        {
+            "country_cn": "马耳他",
+            "country_en": "Malta",
+            "iso": "MT",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".mt",
+            "tel_code": "+356"
+        },
+        {
+            "country_cn": "斯洛文尼亚",
+            "country_en": "Slovenia",
+            "iso": "SI",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".si",
+            "tel_code": "+386"
+        },
+        {
+            "country_cn": "克罗地亚",
+            "country_en": "Croatia",
+            "iso": "HR",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".hr",
+            "tel_code": "+385"
+        },
+        {
+            "country_cn": "波斯尼亚和黑塞哥维那",
+            "country_en": "Bosnia and Herzegovina",
+            "iso": "BA",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".ba",
+            "tel_code": "+387"
+        },
+        {
+            "country_cn": "黑山",
+            "country_en": "Montenegro",
+            "iso": "ME",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".me",
+            "tel_code": "+382"
+        },
+        {
+            "country_cn": "塞尔维亚",
+            "country_en": "Serbia",
+            "iso": "RS",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".rs",
+            "tel_code": "+381"
+        },
+        {
+            "country_cn": "阿尔巴尼亚",
+            "country_en": "Albania",
+            "iso": "AL",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".al",
+            "tel_code": "+355"
+        },
+        {
+            "country_cn": "北马其顿",
+            "country_en": "North Macedonia",
+            "iso": "MK",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".mk",
+            "tel_code": "+389"
+        },
+        {
+            "country_cn": "保加利亚",
+            "country_en": "Bulgaria",
+            "iso": "BG",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".bg",
+            "tel_code": "+359"
+        },
+        {
+            "country_cn": "希腊",
+            "country_en": "Greece",
+            "iso": "GR",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".gr",
+            "tel_code": "+30"
+        },
+        {
+            "country_cn": "罗马尼亚",
+            "country_en": "Romania",
+            "iso": "RO",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".ro",
+            "tel_code": "+40"
+        },
+        {
+            "country_cn": "塞浦路斯",
+            "country_en": "Cyprus",
+            "iso": "CY",
+            "continent": "欧洲",
+            "region": "南欧",
+            "domain": ".cy",
+            "tel_code": "+357"
+        },
+        {
+            "country_cn": "埃及",
+            "country_en": "Egypt",
+            "iso": "EG",
+            "continent": "非洲",
+            "region": "北非",
+            "domain": ".eg",
+            "tel_code": "+20"
+        },
+        {
+            "country_cn": "利比亚",
+            "country_en": "Libya",
+            "iso": "LY",
+            "continent": "非洲",
+            "region": "北非",
+            "domain": ".ly",
+            "tel_code": "+218"
+        },
+        {
+            "country_cn": "突尼斯",
+            "country_en": "Tunisia",
+            "iso": "TN",
+            "continent": "非洲",
+            "region": "北非",
+            "domain": ".tn",
+            "tel_code": "+216"
+        },
+        {
+            "country_cn": "阿尔及利亚",
+            "country_en": "Algeria",
+            "iso": "DZ",
+            "continent": "非洲",
+            "region": "北非",
+            "domain": ".dz",
+            "tel_code": "+213"
+        },
+        {
+            "country_cn": "摩洛哥",
+            "country_en": "Morocco",
+            "iso": "MA",
+            "continent": "非洲",
+            "region": "北非",
+            "domain": ".ma",
+            "tel_code": "+212"
+        },
+        {
+            "country_cn": "尼日尔",
+            "country_en": "Niger",
+            "iso": "NE",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".ne",
+            "tel_code": "+227"
+        },
+        {
+            "country_cn": "布基纳法索",
+            "country_en": "Burkina Faso",
+            "iso": "BF",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".bf",
+            "tel_code": "+226"
+        },
+        {
+            "country_cn": "马里",
+            "country_en": "Mali",
+            "iso": "ML",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".ml",
+            "tel_code": "+223"
+        },
+        {
+            "country_cn": "毛里塔尼亚",
+            "country_en": "Mauritania",
+            "iso": "MR",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".mr",
+            "tel_code": "+222"
+        },
+        {
+            "country_cn": "尼日利亚",
+            "country_en": "Nigeria",
+            "iso": "NG",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".ng",
+            "tel_code": "+234"
+        },
+        {
+            "country_cn": "贝宁",
+            "country_en": "Benin",
+            "iso": "BJ",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".bj",
+            "tel_code": "+229"
+        },
+        {
+            "country_cn": "多哥",
+            "country_en": "Togo",
+            "iso": "TG",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".tg",
+            "tel_code": "+228"
+        },
+        {
+            "country_cn": "加纳",
+            "country_en": "Ghana",
+            "iso": "GH",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".gh",
+            "tel_code": "+233"
+        },
+        {
+            "country_cn": "科特迪瓦",
+            "country_en": "Côte d'Ivoire",
+            "iso": "CI",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".ci",
+            "tel_code": "+225"
+        },
+        {
+            "country_cn": "利比里亚",
+            "country_en": "Liberia",
+            "iso": "LR",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".lr",
+            "tel_code": "+231"
+        },
+        {
+            "country_cn": "塞拉利昂",
+            "country_en": "Sierra Leone",
+            "iso": "SL",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".sl",
+            "tel_code": "+232"
+        },
+        {
+            "country_cn": "几内亚",
+            "country_en": "Guinea",
+            "iso": "GN",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".gn",
+            "tel_code": "+224"
+        },
+        {
+            "country_cn": "几内亚比绍",
+            "country_en": "Guinea-Bissau",
+            "iso": "GW",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".gw",
+            "tel_code": "+245"
+        },
+        {
+            "country_cn": "塞内加尔",
+            "country_en": "Senegal",
+            "iso": "SN",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".sn",
+            "tel_code": "+221"
+        },
+        {
+            "country_cn": "冈比亚",
+            "country_en": "Gambia",
+            "iso": "GM",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".gm",
+            "tel_code": "+220"
+        },
+        {
+            "country_cn": "佛得角",
+            "country_en": "Cabo Verde",
+            "iso": "CV",
+            "continent": "非洲",
+            "region": "西非",
+            "domain": ".cv",
+            "tel_code": "+238"
+        },
+        {
+            "country_cn": "乍得",
+            "country_en": "Chad",
+            "iso": "TD",
+            "continent": "非洲",
+            "region": "中非",
+            "domain": ".td",
+            "tel_code": "+235"
+        },
+        {
+            "country_cn": "中非",
+            "country_en": "Central African Republic",
+            "iso": "CF",
+            "continent": "非洲",
+            "region": "中非",
+            "domain": ".cf",
+            "tel_code": "+236"
+        },
+        {
+            "country_cn": "喀麦隆",
+            "country_en": "Cameroon",
+            "iso": "CM",
+            "continent": "非洲",
+            "region": "中非",
+            "domain": ".cm",
+            "tel_code": "+237"
+        },
+        {
+            "country_cn": "刚果民主共和国",
+            "country_en": "The Democratic Republic of the Congo",
+            "iso": "CD",
+            "continent": "非洲",
+            "region": "中非",
+            "domain": ".cd",
+            "tel_code": "+243"
+        },
+        {
+            "country_cn": "刚果共和国",
+            "country_en": "Congo",
+            "iso": "CG",
+            "continent": "非洲",
+            "region": "中非",
+            "domain": ".cg",
+            "tel_code": "+242"
+        },
+        {
+            "country_cn": "加蓬",
+            "country_en": "Gabon",
+            "iso": "GA",
+            "continent": "非洲",
+            "region": "中非",
+            "domain": ".ga",
+            "tel_code": "+241"
+        },
+        {
+            "country_cn": "赤道几内亚",
+            "country_en": "Equatorial Guinea",
+            "iso": "GQ",
+            "continent": "非洲",
+            "region": "中非",
+            "domain": ".gq",
+            "tel_code": "+240"
+        },
+        {
+            "country_cn": "圣多美和普林西比",
+            "country_en": "Sao Tome and Principe",
+            "iso": "ST",
+            "continent": "非洲",
+            "region": "中非",
+            "domain": ".st",
+            "tel_code": "+239"
+        },
+        {
+            "country_cn": "吉布提",
+            "country_en": "Djibouti",
+            "iso": "DJ",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".dj",
+            "tel_code": "+253"
+        },
+        {
+            "country_cn": "索马里",
+            "country_en": "Somalia",
+            "iso": "SO",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".so",
+            "tel_code": "+252"
+        },
+        {
+            "country_cn": "厄立特里亚",
+            "country_en": "Eritrea",
+            "iso": "ER",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".er",
+            "tel_code": "+291"
+        },
+        {
+            "country_cn": "埃塞俄比亚",
+            "country_en": "Ethiopia",
+            "iso": "ET",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".et",
+            "tel_code": "+251"
+        },
+        {
+            "country_cn": "苏丹",
+            "country_en": "Sudan",
+            "iso": "SD",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".sd",
+            "tel_code": "+249"
+        },
+        {
+            "country_cn": "南苏丹",
+            "country_en": "South Sudan",
+            "iso": "SS",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".ss",
+            "tel_code": "+211"
+        },
+        {
+            "country_cn": "肯尼亚",
+            "country_en": "Kenya",
+            "iso": "KE",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".ke",
+            "tel_code": "+254"
+        },
+        {
+            "country_cn": "坦桑尼亚",
+            "country_en": "The United Republic of Tanzania",
+            "iso": "TZ",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".tz",
+            "tel_code": "+255"
+        },
+        {
+            "country_cn": "乌干达",
+            "country_en": "Uganda",
+            "iso": "UG",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".ug",
+            "tel_code": "+256"
+        },
+        {
+            "country_cn": "卢旺达",
+            "country_en": "Rwanda",
+            "iso": "RW",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".rw",
+            "tel_code": "+250"
+        },
+        {
+            "country_cn": "布隆迪",
+            "country_en": "Burundi",
+            "iso": "BI",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".bi",
+            "tel_code": "+257"
+        },
+        {
+            "country_cn": "塞舌尔",
+            "country_en": "Seychelles",
+            "iso": "SC",
+            "continent": "非洲",
+            "region": "东非",
+            "domain": ".sc",
+            "tel_code": "+248"
+        },
+        {
+            "country_cn": "安哥拉",
+            "country_en": "Angola",
+            "iso": "AO",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".ao",
+            "tel_code": "+244"
+        },
+        {
+            "country_cn": "赞比亚",
+            "country_en": "Zambia",
+            "iso": "ZM",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".zm",
+            "tel_code": "+260"
+        },
+        {
+            "country_cn": "马拉维",
+            "country_en": "Malawi",
+            "iso": "MW",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".mw",
+            "tel_code": "+265"
+        },
+        {
+            "country_cn": "莫桑比克",
+            "country_en": "Mozambique",
+            "iso": "MZ",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".mz",
+            "tel_code": "+258"
+        },
+        {
+            "country_cn": "纳米比亚",
+            "country_en": "Namibia",
+            "iso": "NA",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".na",
+            "tel_code": "+264"
+        },
+        {
+            "country_cn": "博茨瓦纳",
+            "country_en": "Botswana",
+            "iso": "BW",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".bw",
+            "tel_code": "+267"
+        },
+        {
+            "country_cn": "津巴布韦",
+            "country_en": "Zimbabwe",
+            "iso": "ZW",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".zw",
+            "tel_code": "+263"
+        },
+        {
+            "country_cn": "南非",
+            "country_en": "South Africa",
+            "iso": "ZA",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".za",
+            "tel_code": "+27"
+        },
+        {
+            "country_cn": "斯威士兰",
+            "country_en": "Eswatini",
+            "iso": "SZ",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".sz",
+            "tel_code": "+268"
+        },
+        {
+            "country_cn": "莱索托",
+            "country_en": "Lesotho",
+            "iso": "LS",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".ls",
+            "tel_code": "+266"
+        },
+        {
+            "country_cn": "马达加斯加",
+            "country_en": "Madagascar",
+            "iso": "MG",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".mg",
+            "tel_code": "+261"
+        },
+        {
+            "country_cn": "毛里求斯",
+            "country_en": "Mauritius",
+            "iso": "MU",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".mu",
+            "tel_code": "+230"
+        },
+        {
+            "country_cn": "科摩罗",
+            "country_en": "Comoros",
+            "iso": "KM",
+            "continent": "非洲",
+            "region": "南非",
+            "domain": ".km",
+            "tel_code": "+269"
+        },
+        {
+            "country_cn": "澳大利亚",
+            "country_en": "Australia",
+            "iso": "AU",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".au",
+            "tel_code": "+61、+672（海外领地）"
+        },
+        {
+            "country_cn": "新西兰",
+            "country_en": "New Zealand",
+            "iso": "NZ",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".nz",
+            "tel_code": "+64"
+        },
+        {
+            "country_cn": "帕劳",
+            "country_en": "Palau",
+            "iso": "PW",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".pw",
+            "tel_code": "+680"
+        },
+        {
+            "country_cn": "密克罗尼西亚联邦",
+            "country_en": "Federated States of Micronesia",
+            "iso": "FM",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".fm",
+            "tel_code": "+691"
+        },
+        {
+            "country_cn": "马绍尔群岛",
+            "country_en": "Marshall Islands",
+            "iso": "MH",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".mh",
+            "tel_code": "+692"
+        },
+        {
+            "country_cn": "瑙鲁",
+            "country_en": "Nauru",
+            "iso": "NR",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".nr",
+            "tel_code": "+674"
+        },
+        {
+            "country_cn": "基里巴斯",
+            "country_en": "Kiribati",
+            "iso": "KI",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".ki",
+            "tel_code": "+686"
+        },
+        {
+            "country_cn": "巴布亚新几内亚",
+            "country_en": "Papua New Guinea",
+            "iso": "PG",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".pg",
+            "tel_code": "+675"
+        },
+        {
+            "country_cn": "所罗门群岛",
+            "country_en": "Solomon Islands",
+            "iso": "SB",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".sb",
+            "tel_code": "+677"
+        },
+        {
+            "country_cn": "瓦努阿图",
+            "country_en": "Vanuatu",
+            "iso": "VU",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".vu",
+            "tel_code": "+678"
+        },
+        {
+            "country_cn": "斐济",
+            "country_en": "Fiji",
+            "iso": "FJ",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".fj",
+            "tel_code": "+679"
+        },
+        {
+            "country_cn": "图瓦卢",
+            "country_en": "Tuvalu",
+            "iso": "TV",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".tv",
+            "tel_code": "+688"
+        },
+        {
+            "country_cn": "萨摩亚",
+            "country_en": "Samoa",
+            "iso": "WS",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".ws",
+            "tel_code": "+685"
+        },
+        {
+            "country_cn": "汤加",
+            "country_en": "Tonga",
+            "iso": "TO",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".to",
+            "tel_code": "+676"
+        },
+        {
+            "country_cn": "纽埃",
+            "country_en": "Niue",
+            "iso": "NU",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".nu",
+            "tel_code": "+683"
+        },
+        {
+            "country_cn": "库克群岛",
+            "country_en": "Cook Islands",
+            "iso": "CK",
+            "continent": "大洋洲",
+            "region": "",
+            "domain": ".ck",
+            "tel_code": "+682"
+        },
+        {
+            "country_cn": "加拿大",
+            "country_en": "Canada",
+            "iso": "CA",
+            "continent": "北美洲",
+            "region": "北美",
+            "domain": ".ca",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "美国",
+            "country_en": "United States of America",
+            "iso": "US",
+            "continent": "北美洲",
+            "region": "北美",
+            "domain": ".us",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "墨西哥",
+            "country_en": "Mexico",
+            "iso": "MX",
+            "continent": "北美洲",
+            "region": "中美洲",
+            "domain": ".mx",
+            "tel_code": "+52"
+        },
+        {
+            "country_cn": "危地马拉",
+            "country_en": "Guatemala",
+            "iso": "GT",
+            "continent": "北美洲",
+            "region": "中美洲",
+            "domain": ".gt",
+            "tel_code": "+502"
+        },
+        {
+            "country_cn": "伯利兹",
+            "country_en": "Belize",
+            "iso": "BZ",
+            "continent": "北美洲",
+            "region": "中美洲",
+            "domain": ".bz",
+            "tel_code": "+501"
+        },
+        {
+            "country_cn": "萨尔瓦多",
+            "country_en": "El Salvador",
+            "iso": "SV",
+            "continent": "北美洲",
+            "region": "中美洲",
+            "domain": ".sv",
+            "tel_code": "+503"
+        },
+        {
+            "country_cn": "洪都拉斯",
+            "country_en": "Honduras",
+            "iso": "HN",
+            "continent": "北美洲",
+            "region": "中美洲",
+            "domain": ".hn",
+            "tel_code": "+504"
+        },
+        {
+            "country_cn": "尼加拉瓜",
+            "country_en": "Nicaragua",
+            "iso": "NI",
+            "continent": "北美洲",
+            "region": "中美洲",
+            "domain": ".ni",
+            "tel_code": "+505"
+        },
+        {
+            "country_cn": "哥斯达黎加",
+            "country_en": "Costa Rica",
+            "iso": "CR",
+            "continent": "北美洲",
+            "region": "中美洲",
+            "domain": ".cr",
+            "tel_code": "+506"
+        },
+        {
+            "country_cn": "巴拿马",
+            "country_en": "Panama",
+            "iso": "PA",
+            "continent": "北美洲",
+            "region": "中美洲",
+            "domain": ".pa",
+            "tel_code": "+507"
+        },
+        {
+            "country_cn": "巴哈马",
+            "country_en": "Bahamas",
+            "iso": "BS",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".bs",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "古巴",
+            "country_en": "Cuba",
+            "iso": "CU",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".cu",
+            "tel_code": "+53"
+        },
+        {
+            "country_cn": "牙买加",
+            "country_en": "Jamaica",
+            "iso": "JM",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".jm",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "海地",
+            "country_en": "Haiti",
+            "iso": "HT",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".ht",
+            "tel_code": "+509"
+        },
+        {
+            "country_cn": "多米尼加共和国",
+            "country_en": "Dominican Republic",
+            "iso": "DO",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".do",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "圣基茨和尼维斯",
+            "country_en": "Saint Kitts and Nevis",
+            "iso": "KN",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".kn",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "安提瓜和巴布达",
+            "country_en": "Antigua and Barbuda",
+            "iso": "AG",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".ag",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "多米尼克",
+            "country_en": "Dominica",
+            "iso": "DM",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".dm",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "圣卢西亚",
+            "country_en": "Saint Lucia",
+            "iso": "LC",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".lc",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "巴巴多斯",
+            "country_en": "Barbados",
+            "iso": "BB",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".bb",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "圣文森特和格林纳丁斯",
+            "country_en": "Saint Vincent and the Grenadines",
+            "iso": "VC",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".vc",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "格林纳达",
+            "country_en": "Grenada",
+            "iso": "GD",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".gd",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "特立尼达和多巴哥",
+            "country_en": "Trinidad and Tobago",
+            "iso": "TT",
+            "continent": "北美洲",
+            "region": "加勒比地区",
+            "domain": ".tt",
+            "tel_code": "+1"
+        },
+        {
+            "country_cn": "哥伦比亚",
+            "country_en": "Colombia",
+            "iso": "CO",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".co",
+            "tel_code": "+57"
+        },
+        {
+            "country_cn": "委内瑞拉",
+            "country_en": "Venezuela",
+            "iso": "VE",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".ve",
+            "tel_code": "+58"
+        },
+        {
+            "country_cn": "圭亚那",
+            "country_en": "Guyana",
+            "iso": "GY",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".gy",
+            "tel_code": "+592"
+        },
+        {
+            "country_cn": "苏里南",
+            "country_en": "Suriname",
+            "iso": "SR",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".sr",
+            "tel_code": "+597"
+        },
+        {
+            "country_cn": "厄瓜多尔",
+            "country_en": "Ecuador",
+            "iso": "EC",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".ec",
+            "tel_code": "+593"
+        },
+        {
+            "country_cn": "秘鲁",
+            "country_en": "Peru",
+            "iso": "PE",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".pe",
+            "tel_code": "+51"
+        },
+        {
+            "country_cn": "玻利维亚",
+            "country_en": "Bolivia",
+            "iso": "BO",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".bo",
+            "tel_code": "+591"
+        },
+        {
+            "country_cn": "巴西",
+            "country_en": "Brazil",
+            "iso": "BR",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".br",
+            "tel_code": "+55"
+        },
+        {
+            "country_cn": "智利",
+            "country_en": "Chile",
+            "iso": "CL",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".cl",
+            "tel_code": "+56"
+        },
+        {
+            "country_cn": "阿根廷",
+            "country_en": "Argentina",
+            "iso": "AR",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".ar",
+            "tel_code": "+54"
+        },
+        {
+            "country_cn": "乌拉圭",
+            "country_en": "Uruguay",
+            "iso": "UY",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".uy",
+            "tel_code": "+598"
+        },
+        {
+            "country_cn": "巴拉圭",
+            "country_en": "Paraguay",
+            "iso": "PY",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".py",
+            "tel_code": "+595"
+        },
+        {
+            "country_cn": "库拉索",
+            "country_en": "Curaçao",
+            "iso": "CW",
+            "continent": "南美洲",
+            "region": "",
+            "domain": ".cw",
+            "tel_code": "+599"
+        }
+    ]
+}

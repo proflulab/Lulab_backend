@@ -14,5 +14,5 @@
 module.exports = (app) => {
   const { router, controller } = app;
   router.get("/", controller.home.index);
-  router.post("/stripe", controller.stripe.index);
+  router.post("/stripe_push", controller.stripe.index);
 };
