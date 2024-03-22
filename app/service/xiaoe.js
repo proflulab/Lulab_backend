@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-03-17 17:09:35
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-19 17:10:43
+ * @LastEditTime: 2024-03-21 02:35:10
  * @FilePath: /Lulab_backend/app/service/xiaoe.js
  * @Description:
  *
@@ -54,8 +54,8 @@ class XiaoeService extends Service {
    */
   async registerUser(userInfo) {
     const url = "https://api.xiaoe-tech.com/xe.user.register/1.0.0";
-    const { redis } = this.ctx.service;
-    const access_token = await redis.get("xiaoe_access_token");
+
+    const access_token = await this.app.redis.get("xiaoe_access_token");
 
     try {
       const response = await this.ctx.curl(url, {
@@ -90,14 +90,16 @@ class XiaoeService extends Service {
     try {
       let maxRetries = 0;
       const { user_id, data } = datas;
-      const { redis } = this.ctx.service;
-      const access_token = await redis.get("xiaoe_access_token");
+      const access_token = await this.app.redis.get("xiaoe_access_token");
 
       const response = await this.ctx.curl(
         "https://api.xiaoe-tech.com/xe.order.delivery/2.0.0",
         {
           method: "POST",
           dataType: "json",
+          headers: {
+            "Content-Type": "application/json",
+          },
           data: {
             access_token,
             user_id,
@@ -106,7 +108,7 @@ class XiaoeService extends Service {
         }
       );
 
-      const handledData = this.handleResponse(response);
+      const handledData = this.handleResponse(response.data);
       if (handledData.success) {
         return response.data;
       } else if (handledData.code === 2008) {

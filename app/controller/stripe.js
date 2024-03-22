@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-03-16 17:06:00
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-20 17:49:17
+ * @LastEditTime: 2024-03-21 01:45:49
  * @FilePath: /Lulab_backend/app/controller/stripe.js
  * @Description:
  *
@@ -91,7 +91,7 @@ class StripeController extends Controller {
           const xiaoe_user = await ctx.service.xiaoe.registerUser(userInfo);
 
           // 开通课程权益包
-          const user_id = xiaoe_user.data.user_id;
+          const user_id = xiaoe_user.user_id;
 
           const datas = {
             user_id,

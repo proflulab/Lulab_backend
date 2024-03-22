@@ -2,7 +2,7 @@
  * @Author: caohanzhong 342292451@qq.com
  * @Date: 2024-02-20 10:12:46
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-02-26 14:46:23
+ * @LastEditTime: 2024-03-22 02:23:24
  * @FilePath: /Lulab_backend/README.md
  * @Description:
  *
@@ -43,9 +43,14 @@ npm stop
 
 ### install in docker
 
+确保服务器已经安装docker
+
+
 ```bash
 git clone -b develop https://github.com/proflulab/Lulab_backend.git
+
 cd Lulab_backend
+
 docker-compose up -d
 ```
 
