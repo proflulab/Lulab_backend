@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-05 21:28:10
+ * @LastEditTime: 2024-03-22 17:23:30
  * @FilePath: /Lulab_backend/config/config.default.js
  * @Description:
  *
@@ -94,6 +94,19 @@ module.exports = (appInfo) => {
       host: REDIS_HOST, // Redis host
       password: null,
       db: 0,
+    },
+  };
+
+  config.oAuth2Server = {
+    debug: true,
+    grants: ["authorization_code", "refresh_token"],
+  };
+
+  // 配置 ejs 模板引擎
+  config.view = {
+    // 表示对.html文件进行模板渲染
+    mapping: {
+      ".html": "ejs",
     },
   };
 
