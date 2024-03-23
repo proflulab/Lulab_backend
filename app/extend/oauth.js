@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-03-22 16:10:45
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-22 18:18:35
+ * @LastEditTime: 2024-03-23 15:09:26
  * @FilePath: /Lulab_backend/app/extend/oauth.js
  * @Description:
  * https://www.codenong.com/js1fe043a700bf/
@@ -64,15 +64,19 @@ module.exports = (app) => {
       try {
         console.log("getUser() invoked...");
         // 1. 从数据库中查询用户信息
+
         const user = await this.ctx.model.User.findOne({
-          username,
+          $or: [{ name: username }, { email: username }, { phone: username }],
         });
+
         if (!user) return false;
 
         // 2. 校验用户密码
-        if (user.password !== password) {
+
+        if (this.ctx.helper.compare(password, user.password) === false) {
           return false;
         }
+
         // 3. 返回用户信息
         return {
           id: user.userId,

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>OAuth Account Login</title>
+    <title>Lulab OAuth Account Login</title>
     <!-- Bootstrap CSS from CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -15,6 +15,8 @@
             background-color: #f8f9fa;
             /* Light gray background */
             padding: 50px;
+            font-family: Arial, sans-serif;
+            /* 更改字体 */
         }
 
         .login-container {
@@ -43,11 +45,38 @@
             text-align: center;
             margin-top: 20px;
         }
+
+        /* 新增样式 */
+        .company-logo {
+            display: block;
+            margin: auto;
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border-radius: 20px;
+            /* 圆角 */
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            /* 使用公司品牌色 */
+            border: none;
+            border-radius: 20px;
+            /* 圆角 */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            /* 悬停效果 */
+        }
     </style>
 </head>
 
 <body>
     <div class="login-container">
+        <img src="../public/logo.png" alt="Company Logo" class="company-logo">
         <h1 class="login-title">
             <%= title %>
         </h1>

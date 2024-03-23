@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-03-22 15:58:48
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-22 17:38:00
+ * @LastEditTime: 2024-03-23 13:44:49
  * @FilePath: /Lulab_backend/app/router.js
  * @Description:
  *
@@ -14,14 +14,10 @@
  */
 module.exports = (app) => {
   const { router, controller } = app;
-  // router.get("/", controller.home.index);
-
-  // 该接口模拟客户端「通过授权码获取 accessToken」操作。
-  // 真实环境下 OAuth 服务不需要实现该接口
   router.get("/", controller.home.index);
 
   // OAuth 服务的前端登录页面
-  router.get("/authorize", controller.user.authorize);
+  router.get("/authorize", controller.auth2.authorize);
 
   // 获取授权码
   // authorize 是用来获取授权码的路由

@@ -2,11 +2,11 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-03-22 16:50:08
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-22 16:50:16
+ * @LastEditTime: 2024-03-22 21:17:57
  * @FilePath: /Lulab_backend/app/model/refreshToken.js
- * @Description: 
- * 
- * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 "use strict";
 

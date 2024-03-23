@@ -1,3 +1,13 @@
+/*
+ * @Author: 杨仕明 shiming.y@qq.com
+ * @Date: 2024-03-22 15:58:48
+ * @LastEditors: 杨仕明 shiming.y@qq.com
+ * @LastEditTime: 2024-03-23 12:38:55
+ * @FilePath: /Lulab_backend/app.js
+ * @Description:
+ *
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
+ */
 class AppBootHook {
   constructor(app) {
     this.app = app;
@@ -80,6 +90,15 @@ class AppBootHook {
     } else {
       this.app.logger.info("超级管理员admin已存在");
     }
+
+    // const result = await this.app.model.Client.create({
+    //   clientId: "123456",
+    //   userId: "654321",
+    //   clientSecret: "qwerty",
+    //   redirectUri: "http://127.0.0.1:7001",
+    //   grants: "authorization_code,refresh_token", // 授权模式有两个！！！
+    // });
+    // console.log(result);
   }
 
   async didReady() {
