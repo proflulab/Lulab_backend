@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 12:40:34
  * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-02 21:47:18
+ * @LastEditTime: 2024-03-19 01:43:23
  * @FilePath: /Lulab_backend/app/extend/helper.js
  * @Description:
  *
@@ -11,6 +11,7 @@
 "use strict";
 
 const bcrypt = require("bcrypt");
+const fs = require("fs");
 
 module.exports = {
   /**
@@ -98,5 +99,22 @@ module.exports = {
    */
   compare(password, hash) {
     return bcrypt.compareSync(password, hash); // Compare the password with the hash
+  },
+
+  //
+  /**
+   * @description 定义函数根据 ISO 查询电话代码
+   * @param {string} iso
+   * @return {*}
+   */
+  getTelCodeByISO(iso) {
+    const filePath = `${__dirname}/../public/country_codes.json`;
+    const rawData = fs.readFileSync(filePath, "utf-8").trim();
+    const countryData = JSON.parse(rawData);
+    // 在 countryData 中查找对应 ISO 的国家信息
+    const country = countryData.data.find((country) => country.iso === iso);
+
+    // 如果找到对应的国家信息，则返回电话代码；否则返回空字符串
+    return country ? country.tel_code : "";
   },
 };
