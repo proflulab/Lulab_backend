@@ -2,7 +2,7 @@
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-02-17 10:13:58
  * @LastEditors: caohanzhong 342292451@qq.com
- * @LastEditTime: 2024-03-19 15:05:07
+ * @LastEditTime: 2024-03-23 11:36:22
  * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\e368bc8\Lulab_backend\app\graphql\auth\connector.js
  * @Description:
  *
@@ -331,27 +331,11 @@ class LaunchConnector {
    * @return {Object} Object Returns the refreshed user token and refresh token
    */
   async refreshAccessToken(refresh_token) {
-    const authHeader = this.ctx.request.header.authorization;
-    const token = authHeader.replace(/^Bearer\s+/i, "");
-    const exp = await this.jwt.verifyToken(token);
-    const res = await this.jwt.verifyToken(refresh_token, true);
-    if (exp) {
-      throw new Error(
-        "User token is still valid and does not need to be refreshed"
-      );
+    const token = await this.jwt.refreshAccessToken(refresh_token);
+    if (!token) {
+      throw new Error(" Access token&Refresh token is Failed to refresh");
     }
-
-    const user = await this.service.user.findUserById(res.uid);
-    if (!user) {
-      throw new Error("user uid is not fund");
-    }
-    const code = await this.redis.get("blockretoken" + res.jti);
-    if (code) {
-      throw new Error("The user's refresh token has been deleted");
-    }
-    // const { secret, expire } = this.config;
-    const result = await this.jwt.refreshAccessToken(user, refresh_token);
-    return result;
+    return token;
   }
 }
 

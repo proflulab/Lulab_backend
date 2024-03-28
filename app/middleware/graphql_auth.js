@@ -1,15 +1,15 @@
 /*
  * @Author: 杨仕明 shiming.y@qq.com
  * @Date: 2024-03-02 00:48:36
- * @LastEditors: 杨仕明 shiming.y@qq.com
- * @LastEditTime: 2024-03-16 14:38:12
- * @FilePath: /Lulab_backend/app/middleware/graphql_auth.js
+ * @LastEditors: caohanzhong 342292451@qq.com
+ * @LastEditTime: 2024-03-21 19:47:39
+ * @FilePath: \Lulab_backendd:\develop_Lulab_backend\Lulab_backend_develop\e368bc8\Lulab_backend\app\middleware\graphql_auth.js
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 
-module.exports = (options) => {
+module.exports = options => {
   return async function graphqlAuth(ctx, next) {
     // 假设你从请求头中获取到了 Authorization header
     const authHeader = ctx.request.header.authorization;
